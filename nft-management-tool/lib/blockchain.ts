@@ -1,4 +1,4 @@
-'use client'
+'use server';
 import { Alchemy, Network, AssetTransfersCategory } from "alchemy-sdk";
 
 
@@ -22,14 +22,12 @@ export async function getCollectionRoyaltyData(address: string) {
 }
 
 export async function getCollectionSalesData(address: string) {
+  'use server'
     const options = {
         contractAddress: address,
     }
 
-    const data = await alchemy.nft.getNftSales(options);
-
-    console.log(data);
-    return data;
+    return await alchemy.nft.getNftSales(options);
 }
 
 export async function getCollectionHistory(address: string) {

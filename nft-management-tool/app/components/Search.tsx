@@ -1,29 +1,42 @@
-import { getCollectionSalesData } from "@/lib/blockchain";
+'use client'
+import { getCollectionSalesData } from '@/lib/blockchain'
+import {FormResult} from './FormResult'
 
-const SearchForm = () => {
+import { useState } from 'react';
+import { GetNftSalesResponse } from 'alchemy-sdk';
 
-  const onSubmit = async (e: any) => {
-    e.preventDefault();
-    const collectionAddress = e.target.collectionAddress.value;
-    const collectionSalesData = await getCollectionSalesData(collectionAddress);
-    console.log(collectionSalesData);
-  }
+export default function SearchForm({ action }: { action: any }) {
+  const [address, setAddress] = useState("");
+  const [data, setData] = useState<GetNftSalesResponse>();
+
+  async function handleFormSubmit(formData: any) {
+    const response = await getCollectionSalesData(formData);
+    setData(response);
+    console.log(response);
+  };
 
   return (
-    <section className="container p-12 rounded-lg bg-gray-900">
-      <div className="mx-5">
-        <form>
-          <div className="mb-5">
-            <label htmlFor="collectionAddress" className="form-label">Collection Address:</label>
-            <input type="text" className="form-control mx-5 rounded-sm px-1.5 text-gray-700" id="collectionAddress" placeholder="Enter collection address" />
-          </div>
-          <button className="bg-blue-500 rounded-sm p-2 hover:bg-blue-400" >
-          Get Information
-          </button>
-        </form>
-      </div>
-    </section>
+    <>
+      <section className="container p-12 rounded-lg bg-gray-900">
+        <div className="mx-5">
+          <form action={action} onSubmit={e => {
+            e.preventDefault();
+            handleFormSubmit(address);
+          }}>
+            <input
+              type="text"
+              className="form-control mx-5 rounded-sm px-1.5 text-gray-700"
+              onChange={(e) => setAddress(e.target.value.toString())}
+              name="name"
+              id="name"
+              placeholder="Enter collection address"
+            />
+            <button className="bg-blue-500 rounded-sm p-2 hover:bg-blue-400" type="submit">Submit</button>
+          </form>
+        </div>
+      </section>
+      <FormResult data={data}/>
+    </>
   );
-}
 
-export default SearchForm;
+}
