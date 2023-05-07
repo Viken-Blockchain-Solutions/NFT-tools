@@ -1,6 +1,7 @@
 'use client'
 import { getCollectionSalesData } from '@/lib/blockchain'
-import {FormResult} from './FormResult'
+import { FormResult } from './FormResult'
+
 
 import { useState } from 'react';
 import { GetNftSalesResponse } from 'alchemy-sdk';
@@ -12,7 +13,6 @@ export default function SearchForm({ action }: { action: any }) {
   async function handleFormSubmit(formData: any) {
     const response = await getCollectionSalesData(formData);
     setData(response);
-    console.log(response);
   };
 
   return (
@@ -34,8 +34,11 @@ export default function SearchForm({ action }: { action: any }) {
             <button className="bg-blue-500 rounded-sm p-2 hover:bg-blue-400" type="submit">Submit</button>
           </form>
         </div>
+        <div className='my-20 '>
+          <hr className="max-w-screen text-white m-10" />
+          <FormResult data={data} />
+        </div>
       </section>
-      <FormResult data={data}/>
     </>
   );
 
