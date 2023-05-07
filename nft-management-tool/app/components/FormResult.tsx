@@ -8,28 +8,38 @@ export const FormResult = ({ data }: { data: any }) => {
             <section className="container pt-10">
                 <div className="mt-20">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div className="col-span-2 w-fit">
+                        <div className="col-span-3">
                             <div className="bg-white rounded-lg shadow-md">
-                                <div className="px-4 py-5 sm:p-6">
+                                <div className="px-4 py-5 sm:p-6 text-gray-800">
                                     <h5 className="text-lg font-medium mb-2">Secondary Sales Information</h5>
-                                    <p className="text-gray-500">Secondary sales information will be displayed here.</p>
-                                    <ul className='w-fit'>
-                                        {data?.nftSales?.map((sale: NftSale) => {
-
-                                            return (
-                                                <li key={data.nftSales.id} className="text-gray-500 text-sm p-3">
-
-                                                    {sale.contractAddress != collectionAAA ? <h1>Centaurify Collection AAA</h1> : <h1>Unknown Collection</h1>}
-                                                    <p>Marketplace: <span className='font-light text-amber-600'>{sale.marketplace}</span></p>
-                                                    <p>TokenId: <span>{sale.tokenId}</span></p>
-                                                    <p>Buyer: <span>{sale.buyerAddress}</span></p>
-                                                    <p>Seller: <span>{sale.sellerAddress}</span></p>
-                                                    <p>BlockNumber: <span>{sale.blockNumber}</span></p>
-                                                    <p>TxHash: <span>{sale.transactionHash}</span></p>
-                                                </li>
-                                            )
-                                        },)}
-                                    </ul>
+                                    <table className='table-auto border-separate border border-slate-500 text-gray-800'>
+                                        <thead>
+                                            <tr>
+                                                <th className="border border-slate-600">Collection</th>
+                                                <th className="border border-slate-600">Marketplace</th>
+                                                <th className="border border-slate-600">TokenId</th>
+                                                <th className="border border-slate-600">Buyer</th>
+                                                <th className="border border-slate-600">Seller</th>
+                                                <th className="border border-slate-600">BlockNumber</th>
+                                                <th className="border border-slate-600">TxHash</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="text-sm">
+                                            {data?.nftSales?.map((sale: NftSale) => {
+                                                return(
+                                                <tr key={data.nftSales.id} className="text-gray-500 text-sm p-3">
+                                                    {sale.contractAddress != collectionAAA ? <td className="border border-slate-700">Centaurify Collection AAA</td> : <h1>Unknown Collection</h1>}
+                                                    <td className="border border-slate-700"><span className='font-light text-amber-600'>{sale.marketplace}</span></td>
+                                                    <td className="border border-slate-700"><span>{sale.tokenId}</span></td>
+                                                    <td className="border border-slate-700"><span>{sale.buyerAddress}</span></td>
+                                                    <td className="border border-slate-700"><span>{sale.sellerAddress}</span></td>
+                                                    <td className="border border-slate-700"><span>{sale.blockNumber}</span></td>
+                                                    <td className="break-words border border-slate-700"><p >{sale.transactionHash}</p></td>
+                                                </tr>
+                                                );
+                                            },)}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
