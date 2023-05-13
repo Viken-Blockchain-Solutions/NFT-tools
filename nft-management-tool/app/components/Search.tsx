@@ -5,12 +5,13 @@ import { FormResult } from './FormResult'
 
 import { useState } from 'react';
 import { GetNftSalesResponse } from 'alchemy-sdk';
+import { Card } from './Card';
 
 export default function SearchForm({ action }: { action: any }) {
   const [address, setAddress] = useState("");
   const [data, setData] = useState<GetNftSalesResponse>();
 
-  async function handleFormSubmit(formData: any) {
+  async function handleFormSubmit(formData: string) {
     const response = await getCollectionSalesData(formData);
     setData(response);
   };
@@ -37,7 +38,7 @@ export default function SearchForm({ action }: { action: any }) {
         <div className='my-20 '>
           <hr className="max-w-screen text-white m-10" />
           <FormResult data={data} />
-        </div>
+        </div>       
       </section>
     </>
   );
