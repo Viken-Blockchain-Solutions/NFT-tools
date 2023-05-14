@@ -9,7 +9,7 @@ import { GetNftSalesResponse, GetOwnersForContractWithTokenBalancesResponse } fr
 export default function SearchForm({ action }: { action: any }) {
   const [address, setAddress] = useState("");
   const [data, setData] = useState<GetNftSalesResponse>();
-  const [holders, setHolders] = useState<GetOwnersForContractWithTokenBalancesResponse[]>();
+  const [holders, setHolders] = useState(0);
 
   async function handleFormSubmit(formData: string) {
     const response = await getCollectionSalesData(formData);

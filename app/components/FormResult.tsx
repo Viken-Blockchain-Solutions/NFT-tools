@@ -6,12 +6,12 @@ import { parseEther } from 'ethers';
 
 export const FormResult = ({ data, holders }: { data: any, holders: any }) => {
     const [sales, setSales] = useState();
-    const [royalty, setRoyalty] = useState("");
+    const [royalty, setRoyalty] = useState("0");
     const [nonRoyalty, setNonRoyalty] = useState(0);
     const [usdPrice, setUSDPrice] = useState(0);
 
     console.log("data:", data);
-    const collectionAAA = "0x210Dddfe9440567DD0C96D97CB72A7123074c0a1";
+
    
     useEffect(() => {
         const getSalesData = async () => {
@@ -25,35 +25,37 @@ export const FormResult = ({ data, holders }: { data: any, holders: any }) => {
     
     
     useEffect(() => {
+        const getRoyaltyData = async () => {
+            let sum = 0;
+            let nonSum = 0;
+            await data?.nftSales.forEach((sale: NftSale) => {
+                let _royalty = sale.royaltyFee?.amount;
+                // Skip if royalty is NaN
+                if (!isNaN(Number(_royalty))) {
+                    sum += Number(_royalty);
+                } else {
+                    nonSum ++;
+                }
+            });
+            let res = sum.toFixed(5);
+            setRoyalty(res);
+            setNonRoyalty(nonSum);
+            return res;
+        }
+        
         getRoyaltyData();
+
         const getPriceinUSD = async () => {
             let _royalty = parseEther(royalty);
-            const _price = await getUSDPrice();
+            const _price: number = await getUSDPrice();
             console.log("price:", Number(_price));
             console.log("royalty:", Number(royalty)/1e18);
-            setUSDPrice(Number(_price) * Number(_royalty)/1e18);
+            setUSDPrice(_price * Number(_royalty)/1e18);
         };
         getPriceinUSD();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [royalty, usdPrice]);
 
-    const getRoyaltyData = async () => {
-        let sum = 0;
-        let nonSum = 0;
-        await data?.nftSales.forEach((sale: NftSale) => {
-            let _royalty = sale.royaltyFee?.amount;
-            // Skip if royalty is NaN
-            if (!isNaN(Number(_royalty))) {
-                sum += Number(_royalty);
-            } else {
-                nonSum ++;
-            }
-        });
-        let res = sum.toFixed(5);
-        setRoyalty(res);
-        setNonRoyalty(nonSum);
-        return res;
-    }
+    }, [data?.nftSales, royalty, usdPrice]);
+
     
     
 
@@ -61,7 +63,7 @@ export const FormResult = ({ data, holders }: { data: any, holders: any }) => {
 
     return (
         <>
-        {sales > 0 && (
+        {sales && (
 
             <section className="container pt-10">
                 <div className="mt-20">
@@ -111,7 +113,7 @@ export const FormResult = ({ data, holders }: { data: any, holders: any }) => {
                                     <h5 className="text-lg font-medium mb-2">Royalty fee amount</h5>
                                     <div className="flex flex-col justify-center items-center">
                                         <h3>
-                                            {royalty > 0 ? <span className="text-3xl font-bold text-amber-600">{(Number(royalty)/10**18).toFixed(5)} </span> : <span className="text-3xl font-bold text-teal-600">0</span>}
+                                            {Number(royalty) > 0 ? <span className="text-3xl font-bold text-amber-600">{(Number(royalty)/10**18).toFixed(5)} </span> : <span className="text-3xl font-bold text-teal-600">0</span>}
                                              ETH
                                         </h3>
                                         <p className='text-extralight '>$ {(usdPrice/1e18).toFixed(2)}</p>
