@@ -1,5 +1,5 @@
 'use server';
-import { Alchemy, Network, AssetTransfersCategory } from "alchemy-sdk";
+import { Alchemy, Network, AssetTransfersCategory, GetOwnersForContractWithTokenBalancesResponse } from 'alchemy-sdk';
 
 
 const config = {
@@ -13,8 +13,10 @@ export async function getCollectionSupply(address: string) {
     // Implement your logic for fetching supply
 }
 
-export async function getCollectionMintedData(address: string) {
-  // Implement your logic for fetching minted data
+export async function getCollectionHolders<GetOwnersForContractWithTokenBalancesResponse>(FormData: string) {
+  'use server'
+
+    return await alchemy.nft.getOwnersForContract(FormData);
 }
 
 export async function getCollectionRoyaltyData(address: string) {
@@ -23,7 +25,7 @@ export async function getCollectionRoyaltyData(address: string) {
 
 export async function getCollectionSalesData(address: string) {
   'use server'
-    const options = {
+    let options = {
         contractAddress: address,
     }
 

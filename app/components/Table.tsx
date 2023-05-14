@@ -18,12 +18,12 @@ export const Table = ({data}: {data:any}) => {
                     </tr>
                 </thead>
                 <tbody className="text-xs">
-                    {data?.nftSales?.map((sale: NftSale) => {
-                        sales++; 
+                    {data?.nftSales.map((sale: NftSale) => {
+                       
                         return (
-                            <tr key={data.nftSales.id} className="bg-gray-50 text-gray-500">
+                            <tr  key={data?.nftSales.id} className="bg-gray-50 text-gray-500">
 
-                                <td className="border border-slate-700 p-1 text-sm text-gray-700 whitespace-nowrap"><span className='font-light text-amber-600'>{sales}</span></td>
+                                <td className="border border-slate-700 p-1 text-sm text-gray-700 whitespace-nowrap"><span className='font-light text-amber-600'>{sales++}</span></td>
                                 <td className="border border-slate-700 p-1 text-sm text-gray-700 whitespace-nowrap"><span className='font-light text-amber-600'>{sale.marketplace}</span></td>
                                 <td className="border border-slate-700 p-3 text-sm text-gray-700 whitespace-nowrap"><span className='p-1.5 text-xs font-medium tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50'>{sale.tokenId}</span></td>
                                 <td className="border border-slate-700 p-3 text-sm text-gray-700 whitespace-nowrap"><span>{sale.buyerAddress}</span></td>
