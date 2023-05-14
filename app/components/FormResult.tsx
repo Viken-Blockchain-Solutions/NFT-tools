@@ -63,7 +63,7 @@ export const FormResult = ({ data, holders }: { data: any, holders: any }) => {
 
     return (
         <>
-        {sales && (
+        {holders && (
 
             <section className="container pt-10">
                 <div className="mt-20">
