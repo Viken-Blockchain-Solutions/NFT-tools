@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Table } from './Table';
-import { getUSDPrice } from '@/lib/utils';
+import { getEthInUsdPrice } from '@/lib/utils';
 import { NftSale } from 'alchemy-sdk';
 import { parseEther } from 'ethers';
 
@@ -18,7 +17,6 @@ export const FormResult = ({ data, holders }: { data: any, holders: any }) => {
     useEffect(() => {
         const getSalesData = async () => {
             const _sales = data?.nftSales.length;
-            console.log("sales:", _sales);
             setSales(_sales);
         }
         getSalesData();
@@ -49,9 +47,7 @@ export const FormResult = ({ data, holders }: { data: any, holders: any }) => {
 
         const getPriceinUSD = async () => {
             let _royalty = parseEther(royalty);
-            const _price: number = await getUSDPrice();
-            console.log("price:", Number(_price));
-            console.log("royalty:", Number(royalty)/1e18);
+            const _price: number = await getEthInUsdPrice();
             setUSDPrice(_price * Number(_royalty)/1e18);
         };
         getPriceinUSD();
@@ -82,30 +78,28 @@ export const FormResult = ({ data, holders }: { data: any, holders: any }) => {
 
                                     </div>
                                     {nonRoyalty > 0 && ( 
-                                    <>
-                                        <div className="px-4 py-5 sm:p-6  text-gray-800">
-                                            <h5 className="text-lg font-medium mb-2">Royalty sales </h5>
-                                            <div className="flex flex-col justify-center items-center">
-                                                <h3>
-                                                    {nonRoyalty > 0 ? <span className="text-3xl font-bold text-amber-600">{nonRoyalty} </span> : <span className="text-3xl font-bold text-teal-600">0</span>}
-                                                    Sales
-                                                </h3>
-                                            </div>
-                                        </div>
-                                        <div className="px-4 sm:p-6  text-gray-800">
-                                            <h5 className="text-lg font-medium mb-2">Zero royalty </h5>
-                                            <div className="flex flex-col justify-center items-center">
-                                                <h3>
-                                                    {nonRoyalty > 0 ? <span className="text-3xl font-bold text-amber-600">{nonRoyalty} </span> : <span className="text-3xl font-bold text-teal-600">0</span>}
+                                        <>
+                                            <div className="px-4 py-5 sm:p-6  text-gray-800">
+                                                <h5 className="text-lg font-medium mb-2">Royalty sales </h5>
+                                                <div className="flex flex-col justify-center items-center">
+                                                    <h3>
+                                                        {nonRoyalty > 0 ? <span className="text-3xl font-bold text-amber-600">{nonRoyalty} </span> : <span className="text-3xl font-bold text-teal-600">0</span>}
                                                         Sales
-                                                </h3>
+                                                    </h3>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </>
-                                    )
+                                            <div className="px-4 sm:p-6  text-gray-800">
+                                                <h5 className="text-lg font-medium mb-2">Zero royalty </h5>
+                                                <div className="flex flex-col justify-center items-center">
+                                                    <h3>
+                                                        {nonRoyalty > 0 ? <span className="text-3xl font-bold text-amber-600">{nonRoyalty} </span> : <span className="text-3xl font-bold text-teal-600">0</span>}
+                                                            Sales
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </>
+                                        )
                                     }
-
-                                    {/** <Table data={data} /> */}
                                 </div>
                             </div>
                         </div>
