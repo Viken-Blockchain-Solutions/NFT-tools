@@ -75,7 +75,8 @@ export const FormResult = ({ data, holders }: { data: any, holders: any }) => {
                                     <h5 className="text-lg font-medium mb-2">Secondary Sales</h5>
                                     <div className="flex flex-col justify-center items-center">
                                         <h3>
-                                            {sales > 0 ? <span className="text-3xl font-bold text-amber-600">{sales} </span> : <span className="text-3xl font-bold text-teal-600">0</span>}
+                                            {sales !== undefined && sales > 0 ? <span className="text-3xl font-bold text-amber-600">{sales} </span> : <span className="text-3xl font-bold text-teal-600">0</span>}
+
                                              Sales
                                         </h3>
 
@@ -86,7 +87,7 @@ export const FormResult = ({ data, holders }: { data: any, holders: any }) => {
                                             <h5 className="text-lg font-medium mb-2">Royalty sales </h5>
                                             <div className="flex flex-col justify-center items-center">
                                                 <h3>
-                                                    {nonRoyalty > 0 ? <span className="text-3xl font-bold text-amber-600">{sales-nonRoyalty} </span> : <span className="text-3xl font-bold text-teal-600">0</span>}
+                                                    {nonRoyalty > 0 ? <span className="text-3xl font-bold text-amber-600">{nonRoyalty} </span> : <span className="text-3xl font-bold text-teal-600">0</span>}
                                                     Sales
                                                 </h3>
                                             </div>
