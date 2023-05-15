@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={mont.className}>
         <Header />
-        {children}
+          {children}
         <Footer />
       </body>
     </html>

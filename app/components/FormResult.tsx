@@ -1,4 +1,6 @@
-import { use, useEffect, useState } from 'react';
+'use client';
+
+import { useEffect, useState } from 'react';
 import { Table } from './Table';
 import { getUSDPrice } from '@/lib/utils';
 import { NftSale } from 'alchemy-sdk';
@@ -54,7 +56,7 @@ export const FormResult = ({ data, holders }: { data: any, holders: any }) => {
         };
         getPriceinUSD();
 
-    }, [data?.nftSales, royalty, usdPrice]);
+    }, [data, royalty]);
 
     
     
@@ -64,7 +66,6 @@ export const FormResult = ({ data, holders }: { data: any, holders: any }) => {
     return (
         <>
         {holders && (
-
             <section className="container pt-10">
                 <div className="mt-20">
                     <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
@@ -116,7 +117,7 @@ export const FormResult = ({ data, holders }: { data: any, holders: any }) => {
                                             {Number(royalty) > 0 ? <span className="text-3xl font-bold text-amber-600">{(Number(royalty)/10**18).toFixed(5)} </span> : <span className="text-3xl font-bold text-teal-600">0</span>}
                                              ETH
                                         </h3>
-                                        <p className='text-extralight '>$ {(usdPrice/1e18).toFixed(2)}</p>
+                                        <p className='text-extralight'>$ {(usdPrice/1e18).toFixed(2)}</p>
                                     </div>
                                 </div>
                             </div>
@@ -130,8 +131,8 @@ export const FormResult = ({ data, holders }: { data: any, holders: any }) => {
                                             {holders > 0 ? <span className="text-3xl font-bold text-amber-600">{holders} </span> : <span className="text-3xl font-bold text-teal-600">0</span>}
                                              Holders
                                         </h3>
-
                                     </div>
+                                    <p className='text-xs mt-2 underline text-blue-500 text-center'>Get list of holders</p>
                                 </div>
                             </div>
                         </div>
