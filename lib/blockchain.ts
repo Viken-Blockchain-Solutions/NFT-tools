@@ -9,14 +9,16 @@ const config = {
   
 const alchemy = new Alchemy(config);
 
-export async function getCollectionSupply(address: string) {
-    // Implement your logic for fetching supply
+export async function getCollectionMetadata(address: string) {
+  'use server'
+  const data = await alchemy.nft.getContractMetadata(address);
+  return data;
 }
 
-export async function getCollectionHolders<GetOwnersForContractWithTokenBalancesResponse>(FormData: string) {
+export async function getCollectionHolders<GetOwnersForContractWithTokenBalancesResponse>(address: string) {
   'use server'
-
-    return await alchemy.nft.getOwnersForContract(FormData);
+  const data = await alchemy.nft.getOwnersForContract(address);
+  return data;
 }
 
 export async function getCollectionRoyaltyData(address: string) {
@@ -28,8 +30,8 @@ export async function getCollectionSalesData(address: string) {
     let options = {
         contractAddress: address,
     }
-
-    return await alchemy.nft.getNftSales(options);
+    const data = await alchemy.nft.getNftSales(options);
+    return data;
 }
 
 export async function getCollectionHistory(address: string) {
@@ -37,12 +39,13 @@ export async function getCollectionHistory(address: string) {
 }
 
 export async function getCollectionTransferHistory(address: string) {
-        const data = await alchemy.core.getAssetTransfers({
-          fromBlock: "0x0",
-          fromAddress: address,
-          category: [AssetTransfersCategory.EXTERNAL, AssetTransfersCategory.ERC1155],
-        });
-       
-        console.log(data);
-        return data;
+  'use server'
+      const data = await alchemy.core.getAssetTransfers({
+        fromBlock: "0x0",
+        fromAddress: address,
+        category: [AssetTransfersCategory.EXTERNAL, AssetTransfersCategory.ERC1155, AssetTransfersCategory.ERC1155],
+      });
+      
+      console.log(JSON.stringify(data));
+      return data;
 }

@@ -1,6 +1,7 @@
-import Footer from './components/Footer'
-import Header from './components/Header'
+import Footer from '../components/Footer'
+import NavBar from '../components/NavBar'
 import './globals.css'
+import "tw-elements/dist/css/tw-elements.min.css";
 import { Montserrat } from 'next/font/google'
 
 const mont = Montserrat({ subsets: ['latin'] })
@@ -18,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={mont.className}>
-        <Header />
+        <NavBar />
           {children}
         <Footer />
       </body>
