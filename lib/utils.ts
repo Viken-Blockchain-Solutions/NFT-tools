@@ -1,7 +1,7 @@
 'use server'
 
 
-export async function getEthInUsdPrice() {
+export default async function getEthInUsdPrice() {
     const response = await fetch(
         `https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd`,
         {cache: 'no-store'}
@@ -10,3 +10,5 @@ export async function getEthInUsdPrice() {
     let usd = data.ethereum.usd.toFixed(2);
     return usd;
 }
+
+

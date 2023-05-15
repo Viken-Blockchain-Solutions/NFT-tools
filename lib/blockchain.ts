@@ -11,13 +11,17 @@ const alchemy = new Alchemy(config);
 
 export async function getCollectionMetadata(address: string) {
   'use server'
-  const data = await alchemy.nft.getContractMetadata(address);
-  return data;
+  const data = await fetch(`https://eth-mainnet.g.alchemy.com/nft/v2/${config.apiKey}/getContractMetadata?contractAddress=${address}`,
+  {cache: 'no-store'});
+  const result = await data.json();
+
+  return result;
 }
 
 export async function getCollectionHolders<GetOwnersForContractWithTokenBalancesResponse>(address: string) {
   'use server'
   const data = await alchemy.nft.getOwnersForContract(address);
+
   return data;
 }
 
