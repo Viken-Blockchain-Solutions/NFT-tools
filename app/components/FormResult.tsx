@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Table } from './Table';
 import { getUSDPrice } from '@/lib/utils';
 import { NftSale } from 'alchemy-sdk';
 import { parseEther } from 'ethers';
@@ -11,14 +10,10 @@ export const FormResult = ({ data, holders }: { data: any, holders: any }) => {
     const [royalty, setRoyalty] = useState("0");
     const [nonRoyalty, setNonRoyalty] = useState(0);
     const [usdPrice, setUSDPrice] = useState(0);
-
-    console.log("data:", data);
-
    
     useEffect(() => {
         const getSalesData = async () => {
             const _sales = data?.nftSales.length;
-            console.log("sales:", _sales);
             setSales(_sales);
         }
         getSalesData();
@@ -50,8 +45,6 @@ export const FormResult = ({ data, holders }: { data: any, holders: any }) => {
         const getPriceinUSD = async () => {
             let _royalty = parseEther(royalty);
             const _price: number = await getUSDPrice();
-            console.log("price:", Number(_price));
-            console.log("royalty:", Number(royalty)/1e18);
             setUSDPrice(_price * Number(_royalty)/1e18);
         };
         getPriceinUSD();
