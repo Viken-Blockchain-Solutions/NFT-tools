@@ -1,14 +1,17 @@
 'use client';
 
-import { GetNftSalesResponse, NftSale } from "alchemy-sdk";
+import { GetNftSalesResponse, NftSale, GetOwnersForContractResponse } from "alchemy-sdk";
 import { parseEther } from "ethers";
+import Link from "next/link";
 import { useState, useEffect } from "react";
+import { TableList } from "./TableList";
 
-export const FormResult = ({ data, holders, usd, metadata }: { data: GetNftSalesResponse, holders: number, usd: number, metadata: any }) => {
+export const FormResult = ({ data, holders, usd, metadata }: { data: GetNftSalesResponse, holders: any, usd: number, metadata: any }) => {
     const [sales, setSales] = useState(0);
     const [royalty, setRoyalty] = useState("0");
     const [nonRoyalty, setNonRoyalty] = useState(0);
     const [usdPrice, setUSDPrice] = useState(0);
+    const [showList, setShowList] = useState(false);
 
     console.log("data:", data); 
 
@@ -128,15 +131,20 @@ export const FormResult = ({ data, holders, usd, metadata }: { data: GetNftSales
                                     <div className="block p-6 rounded-lg shadow-lg bg-white w-1/2 md:w-auto">
                                         <h5 className="text-gray-900 text-lg leading-tight font-medium mb-2">Holders Information</h5>
                                         <p className="text-gray-700 text-base mb-4">
-                                            {holders > 0 ? <span className="text-3xl font-bold text-amber-600">{holders} </span> : <span className="text-3xl font-bold text-teal-600">0</span>}
+                                            {holders.owners.length > 0 ? <span className="text-3xl font-bold text-amber-600">{holders.owners.length} </span> : <span className="text-3xl font-bold text-teal-600">0</span>}
                                             Holders
                                         </p>
-                                        <p className='text-xs mt-2 underline text-blue-500 text-center'>Get list of holders</p>
+                                            <button type="button" onClick={() => setShowList(!showList)} className='text-xs mt-2 underline text-blue-500 text-center'>Show list of holders</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                        {showList && (
+                        <div className="w-1/2">
+                            <TableList holders={holders} />
+                        </div>   
+                        )}
                 </>
             )
             }

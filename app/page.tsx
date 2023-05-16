@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { getCollectionSalesData, getCollectionHolders } from '@/lib/blockchain'
-import { GetNftSalesResponse } from "alchemy-sdk";
+import { GetNftSalesResponse, GetOwnersForContractResponse } from "alchemy-sdk";
 import { FormResult } from "@/components/FormResult";
 
 
 export default function Home() {
   const [address, setAddress] = useState("");
   const [nftData, setNftData] = useState<GetNftSalesResponse>();
-  const [holders, setHolders] = useState(0);
+  const [holders, setHolders] = useState<GetOwnersForContractResponse>();
   const [collectionMetadata, setCollectionMetadata] = useState();
   const [usdPrice, setUsdPrice] = useState(0);
 
@@ -33,7 +33,7 @@ export default function Home() {
     setNftData(response);
 
     const _holders = await getCollectionHolders(address);
-    setHolders(_holders.owners.length);
+    setHolders(_holders);
     const apikey = 'x5pi1Ykrq9fnCchoIdswHu9ijWHflqIs';
 
     const data = await fetch(`https://eth-mainnet.g.alchemy.com/nft/v2/${apikey}/getContractMetadata?contractAddress=${address}`);

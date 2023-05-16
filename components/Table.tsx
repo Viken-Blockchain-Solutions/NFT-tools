@@ -1,3 +1,4 @@
+
 import { NftSale } from 'alchemy-sdk';
 import Link from 'next/link';
 

@@ -6,8 +6,8 @@ const NavBar = () => {
   const [usdPrice, setUsdPrice] = useState(0);
   const [oldPrice, setOldPrice] = useState(usdPrice);
 
-  
   useEffect(() => {
+    setOldPrice(usdPrice);
     const getPrice = async () => {
       const response = await fetch(
         `https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd`
@@ -18,7 +18,7 @@ const NavBar = () => {
       }
     getPrice();
 
-  }, []);
+  }, [usdPrice]);
 
   return (
       <nav className="max-w-screen py-10">
