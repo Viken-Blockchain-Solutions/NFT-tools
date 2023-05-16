@@ -9,3 +9,5 @@ export async function getUSDPrice() {
     let usd = data.ethereum.usd.toFixed(2);
     return usd;
 }
+
+

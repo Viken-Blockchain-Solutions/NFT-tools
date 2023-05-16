@@ -1,5 +1,5 @@
-import Footer from './components/Footer'
-import Header from './components/Header'
+import Footer from '../components/Footer'
+import NavBar from '../components/NavBar'
 import './globals.css'
 import { Montserrat } from 'next/font/google'
 
@@ -10,6 +10,7 @@ export const metadata = {
   description: 'A tool for managing NFT collections',
 }
 
+
 export default function RootLayout({
   children,
 }: {
@@ -18,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={mont.className}>
-        <Header />
+        <NavBar />
           {children}
         <Footer />
       </body>
