@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from "react";
-import { getCollectionSalesData, getCollectionHolders, getCollectionMetadata } from '@/lib/blockchain'
+import { getCollectionSalesData, getCollectionHolders } from '@/lib/blockchain'
 import { GetNftSalesResponse } from "alchemy-sdk";
 import { FormResult } from "@/components/FormResult";
 
@@ -18,7 +18,7 @@ export default function Home() {
 
     const _holders = await getCollectionHolders(address);
     setHolders(_holders.owners.length);
-    let apikey = 'x5pi1Ykrq9fnCchoIdswHu9ijWHflqIs';
+    const apikey = 'x5pi1Ykrq9fnCchoIdswHu9ijWHflqIs';
 
     const data = await fetch(`https://eth-mainnet.g.alchemy.com/nft/v2/${apikey}/getContractMetadata?contractAddress=${address}`);
     const result = await data.json();
@@ -28,23 +28,25 @@ export default function Home() {
 
   return (
     <>
-      <main className="flex min-h-screen flex-col">
+      <main className="flex min-h-screen flex-col ">
         <div className="mx-5 text-center">
             <h2 className="text-xl py-5 text-white">Search for a collection</h2>
-            <form onSubmit={e => {
+            <form
+              className="flex flex-col md:flex-row items-center justify-center" 
+              onSubmit={e => {
               e.preventDefault();
               console.log(address)
               handleFormSubmit(address);
               }}>
               <input
                 type="text"
-                className="form-control w-2/6 p-2 rounded-sm px-1.5 text-gray-700"
+                className="form-control p-2 rounded-sm px-1.5 text-gray-700"
                 onChange={(e) => setAddress(e.target.value.toString())}
-                name="name"
-                id="name"
+                name="address"
+                id="address"
                 placeholder="Enter collection address"
               />
-              <button className="active:bg-blue-500 rounded-sm p-2 hover:bg-blue-400" type="submit">Submit</button>
+              <button className="bg-blue-500 rounded-sm p-2 hover:bg-blue-400 mt-3 md:mt-0" type="submit">Submit</button>
             </form>
           </div>
           <div className="flex flex-col items-center justify-center">

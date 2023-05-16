@@ -1,5 +1,5 @@
 'use server';
-import { Alchemy, Network, AssetTransfersCategory, GetOwnersForContractWithTokenBalancesResponse } from 'alchemy-sdk';
+import { Alchemy, Network, AssetTransfersCategory } from 'alchemy-sdk';
 
 
 const config = {
@@ -13,12 +13,13 @@ export async function getCollectionMetadata(address: string) {
   'use server'
   const data = await fetch(`https://eth-mainnet.g.alchemy.com/nft/v2/${config.apiKey}/getContractMetadata?contractAddress=${address}`,
   {cache: 'no-store'});
+  
   const result = await data.json();
 
   return result;
 }
 
-export async function getCollectionHolders<GetOwnersForContractWithTokenBalancesResponse>(address: string) {
+export async function getCollectionHolders(address: string) {
   'use server'
   const data = await alchemy.nft.getOwnersForContract(address);
 
