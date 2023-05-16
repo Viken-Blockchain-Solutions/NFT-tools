@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getCollectionSalesData, getCollectionHolders } from '@/lib/blockchain'
 import { GetNftSalesResponse } from "alchemy-sdk";
 import { FormResult } from "@/components/FormResult";
@@ -10,7 +10,23 @@ export default function Home() {
   const [address, setAddress] = useState("");
   const [nftData, setNftData] = useState<GetNftSalesResponse>();
   const [holders, setHolders] = useState(0);
-  const [collectionMetadata, setCollectionMetadata] = useState({});
+  const [collectionMetadata, setCollectionMetadata] = useState();
+  const [usdPrice, setUsdPrice] = useState(0);
+
+  
+  useEffect(() => {
+    const getPrice = async () => {
+      const response = await fetch(
+        `https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd`
+        );
+        const data = await response.json();
+        const usd = data.ethereum.usd.toFixed(2);
+        setUsdPrice(usd);
+      }
+
+    getPrice();
+
+  }, []);
 
   async function handleFormSubmit(address: string) {
     const response = await getCollectionSalesData(address);
@@ -50,7 +66,7 @@ export default function Home() {
             </form>
           </div>
           <div className="flex flex-col items-center justify-center">
-            {nftData && <FormResult data={nftData} holders={holders} metadata={collectionMetadata} />}
+            {nftData && <FormResult data={nftData} holders={holders} usd={usdPrice} metadata={collectionMetadata} />}
           </div>
       </main>
     </>

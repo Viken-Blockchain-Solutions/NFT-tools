@@ -1,17 +1,16 @@
 'use client';
 
-import getEthInUsdPrice from "@/lib/utils";
 import { GetNftSalesResponse, NftSale } from "alchemy-sdk";
 import { parseEther } from "ethers";
 import { useState, useEffect } from "react";
 
-export const FormResult = ({ data, holders, metadata }: { data: GetNftSalesResponse, holders: number, metadata: any }) => {
+export const FormResult = ({ data, holders, usd, metadata }: { data: GetNftSalesResponse, holders: number, usd: number, metadata: any }) => {
     const [sales, setSales] = useState(0);
     const [royalty, setRoyalty] = useState("0");
     const [nonRoyalty, setNonRoyalty] = useState(0);
     const [usdPrice, setUSDPrice] = useState(0);
 
-    console.log("data:", data);
+    console.log("data:", data); 
 
 
     useEffect(() => {
@@ -47,12 +46,11 @@ export const FormResult = ({ data, holders, metadata }: { data: GetNftSalesRespo
 
         const getPriceinUSD = async () => {
             let _royalty = parseEther(royalty);
-            const _price: number = await getEthInUsdPrice();
-            setUSDPrice(_price * Number(_royalty) / 1e18);
+            setUSDPrice(usd * Number(_royalty) / 1e18);
         };
         getPriceinUSD();
 
-    }, [data, royalty]);
+    }, [data, royalty, usd]);
 
     return (
         <section className="m-20">
@@ -61,15 +59,15 @@ export const FormResult = ({ data, holders, metadata }: { data: GetNftSalesRespo
                     <div className="block p-6 rounded-lg shadow-lg bg-white lg:w-auto">
                         <h5 className="text-gray-900 text-xl leading-tight font-medium mb-2 md:text-md">Collection Data</h5>
                         <p className="text-gray-700 text-base mb-4 md:text-xl">
-                            {metadata.contractMetadata?.name}
+                            {metadata?.contractMetadata?.name}
                         </p>
                         <h5 className="text-gray-900 text-xl leading-tight font-medium mb-2">Collection Deployer</h5>
                         <p className="text-gray-700 text-base mb-4">
-                            {metadata.contractMetadata?.contractDeployer}
+                            {metadata?.contractMetadata?.contractDeployer}
                         </p>
                         <h5 className="text-gray-900 text-xl leading-tight font-medium mb-2">Collection Floorprice</h5>
                         <p className="text-gray-700 text-base mb-4">
-                            {metadata.contractMetadata?.openSea.floorPrice} ETH
+                            {metadata?.contractMetadata?.openSea.floorPrice} ETH
                         </p>
                     </div>
                 </div>

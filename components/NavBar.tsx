@@ -16,11 +16,9 @@ const NavBar = () => {
         const usd = data.ethereum.usd.toFixed(2);
         setUsdPrice(usd);
       }
-
     getPrice();
 
   }, []);
-  
 
   return (
       <nav className="max-w-screen py-10">

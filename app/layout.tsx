@@ -10,6 +10,7 @@ export const metadata = {
   description: 'A tool for managing NFT collections',
 }
 
+
 export default function RootLayout({
   children,
 }: {
