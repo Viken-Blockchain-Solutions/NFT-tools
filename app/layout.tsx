@@ -1,7 +1,6 @@
 import Footer from '../components/Footer'
 import NavBar from '../components/NavBar'
 import './globals.css'
-import "tw-elements/dist/css/tw-elements.min.css";
 import { Montserrat } from 'next/font/google'
 
 const mont = Montserrat({ subsets: ['latin'] })

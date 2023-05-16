@@ -18,7 +18,7 @@ const NavBar = () => {
     setOldPrice(usdPrice);
     getPrice();
 
-  }, []);
+  }, [usdPrice]);
 
 
   return (
