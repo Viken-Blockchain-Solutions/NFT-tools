@@ -57,20 +57,20 @@ export const FormResult = ({ data, holders, usd, metadata }: { data: GetNftSales
 
     return (
         <section className="m-20">
-            <div className="flex justify-center border border-zinc-100 p-3 rounded-xl">
-                <div className="m-5">
-                    <div className="block p-6 rounded-lg shadow-lg bg-white lg:w-auto">
-                        <h5 className="text-gray-900 text-xl leading-tight font-medium mb-2 md:text-md">Collection Data</h5>
-                        <p className="text-gray-700 text-base mb-4 md:text-xl">
+            <div className="flex justify-start border border-zinc-100 p-3 rounded-xl">
+                <div className="m-5 text-base">
+                    <div className="block p-6 rounded-lg shadow-lg bg-white">
+                        <h5 className="text-gray-900 text-md leading-tight font-medium mb-2">Collection Data</h5>
+                        <p className="text-gray-700 text-sm mb-4">
                             {metadata?.contractMetadata?.name}
                         </p>
-                        <h5 className="text-gray-900 text-xl leading-tight font-medium mb-2">Collection Deployer</h5>
-                        <p className="text-gray-700 text-base mb-4">
+                        <h5 className="text-gray-900 text-md leading-tight font-medium mb-2">Collection Deployer</h5>
+                        <p className="text-gray-700 text-sm mb-4 truncate">
                             {metadata?.contractMetadata?.contractDeployer}
                         </p>
-                        <h5 className="text-gray-900 text-xl leading-tight font-medium mb-2">Collection Floorprice</h5>
-                        <p className="text-gray-700 text-base mb-4">
-                            {metadata?.contractMetadata?.openSea.floorPrice} ETH
+                        <h5 className="text-gray-900 text-md leading-tight font-medium mb-2">Collection Floorprice</h5>
+                        <p className="text-gray-700 text-sm mb-4">
+                            {metadata?.contractMetadata?.openSea.floorPrice} <span className="text-gray-900 leading-tight font-bold" >ETH</span>
                         </p>
                     </div>
                 </div>
@@ -78,8 +78,8 @@ export const FormResult = ({ data, holders, usd, metadata }: { data: GetNftSales
             <hr className="mx-auto my-10 w-1/2 border-purple-300" />
             {holders && (
                 <>
-                    <div className="border border-zinc-100 p-10 rounded-xl flex flex-col lg:flex-row">
-                        <h2 className="text-xl py-5 text-white">Collection Stats</h2>
+                    <div className="border border-zinc-100 p-10 rounded-xl flex flex-col">
+                        <h2 className="text-xl py-5 text-white">Revenue & Royalty Stats</h2>
                         <div className="flex flex-col lg:flex-row">
                             <div className="m-5">
                                 <div className="flex justify-center">

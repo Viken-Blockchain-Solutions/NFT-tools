@@ -1,9 +1,10 @@
-import Footer from '../components/Footer'
-import NavBar from '../components/NavBar'
-import './globals.css'
-import { Montserrat } from 'next/font/google'
+import Footer from '../components/Footer';
+import NavBar from '@/components/NavBar';
+import './globals.css';
+import "tw-elements/dist/css/tw-elements.min.css";
+import { Roboto } from "next/font/google";
 
-const mont = Montserrat({ subsets: ['latin'] })
+const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
 export const metadata = {
   title: 'NFT Collection Management Tool',
@@ -18,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={mont.className}>
+      <body className={roboto.className}>
         <NavBar />
           {children}
         <Footer />
