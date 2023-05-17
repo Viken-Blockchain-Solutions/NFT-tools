@@ -4,12 +4,13 @@ import { GetNftSalesResponse, GetOwnersForContractResponse } from "alchemy-sdk";
 import { useEffect, useState } from "react";
 import { FormResult } from "./FormResult";
 import { PriceCard } from "./PriceCard";
+import { NFTCollection } from "@/types";
 
 export const Hero = () => {
   const [address, setAddress] = useState("");
   const [nftData, setNftData] = useState<GetNftSalesResponse>();
   const [holders, setHolders] = useState<GetOwnersForContractResponse>();
-  const [collectionMetadata, setCollectionMetadata] = useState();
+  const [collectionMetadata, setCollectionMetadata] = useState<NFTCollection>();
   const [usdPrice, setUsdPrice] = useState(0);
 
 
@@ -35,7 +36,7 @@ export const Hero = () => {
     setHolders(_holders);
     const apikey = 'x5pi1Ykrq9fnCchoIdswHu9ijWHflqIs';
 
-    const data = await fetch(`https://eth-mainnet.g.alchemy.com/nft/v2/${apikey}/getContractMetadata?contractAddress=${address}`);
+    const data = await fetch(`https://eth-mainnet.g.alchemy.com/nft/v3/${apikey}/getContractMetadata?contractAddress=${address}`);
     const result = await data.json();
     setCollectionMetadata(result)
   };
@@ -83,9 +84,12 @@ export const Hero = () => {
           </div>
         </div>
       </div>
+      { nftData && (
       <div className="flex flex-col items-center justify-center">
-        {nftData && <FormResult data={nftData} holders={holders} usd={usdPrice} metadata={collectionMetadata} />}
+        {collectionMetadata && (<FormResult data={nftData} holders={holders} usd={usdPrice} contractdata={collectionMetadata} />)}
       </div>
+
+      )}
     </section>
     )
 }

@@ -4,7 +4,7 @@ const nextConfig = {
         serverActions: true,
     },
     images: {
-        domains: ['mdbootstrap.com'],
+        domains: ['mdbootstrap.com', 'cdn2.benzinga.com','i.pinimg.com','i.seadn.io'],
     },
 }
 
