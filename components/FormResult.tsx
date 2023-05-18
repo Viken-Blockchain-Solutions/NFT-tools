@@ -61,7 +61,7 @@ export const FormResult = ({ data, holders, usd, contractdata }: { data: GetNftS
             <section className="m-20">
                 <div className="flex justify-start border border-zinc-100 p-3 rounded-xl">
                     {contractdata && (
-                        <NftCard sales={sales} royalty={royalty} nonRoyalty={nonRoyalty} holders={holders} contractdata={contractdata} />
+                        <NftCard sales={sales} usdPrice={usdPrice/1e18} royalty={royalty} nonRoyalty={nonRoyalty} holders={holders} contractdata={contractdata} />
                     )}
                 </div>
             </section>

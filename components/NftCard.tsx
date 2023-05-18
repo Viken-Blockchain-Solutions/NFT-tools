@@ -22,7 +22,7 @@ export const NftCard = ({ sales, usdPrice, royalty, nonRoyalty, holders, contrac
             <div className="flex-col">
                 <h2 className="text-gray-100 text-xl leading-tight font-medium mb-2">NFT Data</h2>
                 <div className="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-indigo-500 border-4">
-                    <div className="relative overflow-hidden bg-cover bg-no-repeat flex flex-row">
+                    <div className="relative overflow-hidden bg-cover bg-no-repeat flex flex-col lg:flex-row">
                         <Image
                             src={imageUrl || logo}
                             className="h-auto max-w-full rounded-full m-5 shadow-lg"
@@ -53,7 +53,7 @@ export const NftCard = ({ sales, usdPrice, royalty, nonRoyalty, holders, contrac
                     <hr className="mx-auto my-10 w-1/2 border-indigo-500" />
                     <div className="p-2 flex flex-col m-3 gap-3">
                         <h2 className="text-stone-600 text-md leading-tight font-bold my-2">Collection Stats</h2>
-                        <div className="flex flex-row gap-3">
+                        <div className="flex flex-col lg:flex-row gap-3">
                             <div className="border py-4 whitespace-normal shadow-xl px-5">
                                 <h5 className="mb-2 text-sm font-medium leading-tight text-neutral-800">Collection Name</h5>
                                 <p className="mb-3 text-xs text-neutral-600 break-words">{name}</p>
@@ -70,10 +70,10 @@ export const NftCard = ({ sales, usdPrice, royalty, nonRoyalty, holders, contrac
                                 <h5 className="text-gray-900 text-sm leading-tight font-medium mb-2">Non Royalty Sales</h5>
                                 <p className="text-gray-700 text-xs mb-4 mx-3">{nonRoyalty}</p>
                                 <h5 className="text-gray-900 text-sm leading-tight font-medium mb-2">Royalty Fee</h5>
-                                <p className="text-gray-700 text-xs mb-2 mx-3">{(Number(royalty) / 1e18).toFixed(5)}
+                                <p className="text-gray-700 text-xs mb-1 mx-3">{(Number(royalty) / 1e18).toFixed(5)}
                                     <span className="text-gray-900 leading-tight font-bold"> ETH</span>
                                 </p>
-                                <p className="text-gray-400 text-xs mb-4 text-center">
+                                <p className="text-gray-400 text-xs mb-4 mx-3">
                                 <span className="text-gray-400 leading-tight font-semibold">$ </span>
                                     {usdPrice.toFixed(2)}
                                 </p>
