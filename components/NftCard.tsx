@@ -1,11 +1,13 @@
 import { NFTCollection } from "@/types";
 import Image from "next/image";
+import logo from "../public/Viken.jpg";
 
 
 export const NftCard = ({ sales, royalty, nonRoyalty, holders, contractdata }: { sales: number, royalty: string, nonRoyalty: number, holders: any, contractdata: NFTCollection }) => {
-    
-
-
+    // Check if contractdata or its nested properties are null
+   /*  if (!contractdata || !contractdata.openSeaMetadata?.imageUrl || !contractdata.openSeaMetadata?.floorPrice || !contractdata.openSeaMetadata?.collectionName || !contractdata.openSeaMetadata?.safelistRequestStatus || !contractdata.openSeaMetadata?.description || !contractdata.openSeaMetadata?.externalUrl || !contractdata.openSeaMetadata?.twitterUsername || !contractdata.openSeaMetadata?.discordUrl || !contractdata.openSeaMetadata?.lastIngestedAt) {
+    return <div>Loading...</div>; // return a loading spinner or some placeholder content
+    } */
 
     const collection: NFTCollection = contractdata;
     const holding = holders?.owners?.length;
@@ -13,19 +15,20 @@ export const NftCard = ({ sales, royalty, nonRoyalty, holders, contractdata }: {
     // Destructuring the object
     const { address, name, symbol, totalSupply, tokenType, contractDeployer, deployedBlockNumber, openSeaMetadata } = collection;
     const { floorPrice, collectionName, safelistRequestStatus, imageUrl, description, externalUrl, twitterUsername, discordUrl, lastIngestedAt } = openSeaMetadata;
-    console.log(sales, royalty, nonRoyalty, holders, contractdata);
+    console.log(sales, royalty, nonRoyalty, holders, contractdata, collection);
+
 
     return (
 
         <div className="m-5 flex flex-row">
-            {{collection, sales, royalty, nonRoyalty, holders, contractdata} &&
+            {{collection, sales, royalty, nonRoyalty, holders, contractdata} && (
 
             <div className="flex-col">
                 <h2 className="text-gray-100 text-xl leading-tight font-medium mb-2">NFT Data</h2>
                 <div className="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-indigo-500 border-4">
                     <div className="relative overflow-hidden bg-cover bg-no-repeat flex flex-row">
                         <Image
-                            src={imageUrl}
+                            src={imageUrl || logo}
                             className="h-auto max-w-full rounded-full m-5 shadow-lg"
                             alt="web3"
                             width={170}
@@ -41,7 +44,7 @@ export const NftCard = ({ sales, royalty, nonRoyalty, holders, contractdata }: {
                                 <h5 className="text-gray-900 text-sm leading-tight font-medium mb-2">Total Supply</h5>
                                 <p className="text-gray-700 text-xs mb-4 truncate">{totalSupply}</p>
                                 <h5 className="text-gray-900 text-sm leading-tight font-medium mb-2">Floorprice</h5>
-                                <p className="text-gray-700 text-xs mb-4">{floorPrice}
+                                <p className="text-gray-700 text-xs mb-4">{floorPrice || 0}
                                     <span className="text-gray-900 leading-tight font-bold"> ETH</span>
                                 </p>
                             </div>
@@ -79,7 +82,7 @@ export const NftCard = ({ sales, royalty, nonRoyalty, holders, contractdata }: {
                     </div>
                 </div>
             </div>
-            }
+            )}
         </div>
     )
 }
