@@ -8,14 +8,18 @@ export const NftCard = ({ sales, royalty, nonRoyalty, holders, contractdata }: {
 
 
     const collection: NFTCollection = contractdata;
-    const holding = holders.owners.length;
+    const holding = holders?.owners?.length;
 
     // Destructuring the object
     const { address, name, symbol, totalSupply, tokenType, contractDeployer, deployedBlockNumber, openSeaMetadata } = collection;
     const { floorPrice, collectionName, safelistRequestStatus, imageUrl, description, externalUrl, twitterUsername, discordUrl, lastIngestedAt } = openSeaMetadata;
+    console.log(sales, royalty, nonRoyalty, holders, contractdata);
 
     return (
+
         <div className="m-5 flex flex-row">
+            {{collection, sales, royalty, nonRoyalty, holders, contractdata} &&
+
             <div className="flex-col">
                 <h2 className="text-gray-100 text-xl leading-tight font-medium mb-2">NFT Data</h2>
                 <div className="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-indigo-500 border-4">
@@ -75,6 +79,7 @@ export const NftCard = ({ sales, royalty, nonRoyalty, holders, contractdata }: {
                     </div>
                 </div>
             </div>
+            }
         </div>
     )
 }
