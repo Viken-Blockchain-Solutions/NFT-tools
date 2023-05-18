@@ -13,9 +13,6 @@ export const FormResult = ({ data, holders, usd, contractdata }: { data: GetNftS
     const [usdPrice, setUSDPrice] = useState(0);
 
     console.log("data:", data); 
-    console.log("contractdata:", contractdata); 
-    console.log("holders:", holders); 
-
 
 
     useEffect(() => {
@@ -61,7 +58,7 @@ export const FormResult = ({ data, holders, usd, contractdata }: { data: GetNftS
             <section className="m-20">
                 <div className="flex justify-start border border-zinc-100 p-3 rounded-xl">
                     {contractdata && (
-                        <NftCard sales={sales} usdPrice={usdPrice/1e18} royalty={royalty} nonRoyalty={nonRoyalty} holders={holders} contractdata={contractdata} />
+                        <NftCard sales={sales} usdPrice={usdPrice} royalty={royalty} nonRoyalty={nonRoyalty} holders={holders} contractdata={contractdata} />
                     )}
                 </div>
             </section>
