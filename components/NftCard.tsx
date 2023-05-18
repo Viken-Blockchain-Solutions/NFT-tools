@@ -3,11 +3,7 @@ import Image from "next/image";
 import logo from "../public/Viken.jpg";
 
 
-export const NftCard = ({ sales, royalty, nonRoyalty, holders, contractdata }: { sales: number, royalty: string, nonRoyalty: number, holders: any, contractdata: NFTCollection }) => {
-    // Check if contractdata or its nested properties are null
-   /*  if (!contractdata || !contractdata.openSeaMetadata?.imageUrl || !contractdata.openSeaMetadata?.floorPrice || !contractdata.openSeaMetadata?.collectionName || !contractdata.openSeaMetadata?.safelistRequestStatus || !contractdata.openSeaMetadata?.description || !contractdata.openSeaMetadata?.externalUrl || !contractdata.openSeaMetadata?.twitterUsername || !contractdata.openSeaMetadata?.discordUrl || !contractdata.openSeaMetadata?.lastIngestedAt) {
-    return <div>Loading...</div>; // return a loading spinner or some placeholder content
-    } */
+export const NftCard = ({ sales, usdPrice, royalty, nonRoyalty, holders, contractdata }: { sales: number, usdPrice: number, royalty: string, nonRoyalty: number, holders: any, contractdata: NFTCollection }) => {
 
     const collection: NFTCollection = contractdata;
     const holding = holders?.owners?.length;
@@ -55,27 +51,31 @@ export const NftCard = ({ sales, royalty, nonRoyalty, holders, contractdata }: {
                         </div>
                     </div>
                     <hr className="mx-auto my-10 w-1/2 border-indigo-500" />
-                    <div className="p-6 flex flex-col m-2 gap-3">
-                        <h2 className="text-stone-600 text-sm leading-tight font-medium mb-2">Collection Stats</h2>
+                    <div className="p-2 flex flex-col m-3 gap-3">
+                        <h2 className="text-stone-600 text-md leading-tight font-bold my-2">Collection Stats</h2>
                         <div className="flex flex-row gap-3">
                             <div className="border py-4 whitespace-normal shadow-xl px-5">
                                 <h5 className="mb-2 text-sm font-medium leading-tight text-neutral-800">Collection Name</h5>
-                                <p className="mb-4 text-xs text-neutral-600 break-words">{name}</p>
+                                <p className="mb-3 text-xs text-neutral-600 break-words">{name}</p>
                                 <h5 className="text-gray-900 text-sm leading-tight font-medium mb-2">Address</h5>
-                                <p className="text-gray-700 text-xs mb-4">{address}</p>
+                                <p className="text-gray-700 text-xs mb-3">{address}</p>
                                 <h5 className="text-gray-900 text-sm leading-tight font-medium mb-2">Deployer</h5>
-                                <p className="text-gray-700 text-xs mb-4">{contractDeployer}</p>
+                                <p className="text-gray-700 text-xs mb-3">{contractDeployer}</p>
                             </div>
                             <div className="border py-4 px-5  whitespace-normal shadow-xl">
                                 <h5 className="text-gray-900 text-sm leading-tight font-medium mb-2">Secondary Sales</h5>
-                                <p className="text-gray-700 text-xs mb-4">{sales}</p>
-                                <h5 className="text-gray-900 text-sm leading-tight font-medium mb-2">Non Royalty Sales</h5>
-                                <p className="text-gray-700 text-xs mb-4">{nonRoyalty}</p>
+                                <p className="text-gray-700 text-xs mb-4 mx-3">{sales}</p>
                                 <h5 className="text-gray-900 text-sm leading-tight font-medium mb-2">Royalty Sales</h5>
-                                <p className="text-gray-700 text-xs mb-4 truncate">{sales -= nonRoyalty}</p>
+                                <p className="text-gray-700 text-xs mb-4 mx-3">{sales -= nonRoyalty}</p>
+                                <h5 className="text-gray-900 text-sm leading-tight font-medium mb-2">Non Royalty Sales</h5>
+                                <p className="text-gray-700 text-xs mb-4 mx-3">{nonRoyalty}</p>
                                 <h5 className="text-gray-900 text-sm leading-tight font-medium mb-2">Royalty Fee</h5>
-                                <p className="text-gray-700 text-xs mb-4">{(Number(royalty) / 1e18).toFixed(5)}
+                                <p className="text-gray-700 text-xs mb-2 mx-3">{(Number(royalty) / 1e18).toFixed(5)}
                                     <span className="text-gray-900 leading-tight font-bold"> ETH</span>
+                                </p>
+                                <p className="text-gray-400 text-xs mb-4 text-center">
+                                <span className="text-gray-400 leading-tight font-semibold">$ </span>
+                                    {usdPrice.toFixed(2)}
                                 </p>
                             </div>
                         </div>
