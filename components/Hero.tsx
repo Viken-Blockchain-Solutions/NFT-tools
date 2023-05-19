@@ -18,54 +18,63 @@ export const Hero = () => {
     const getPrice = async () => {
       const response = await fetch(
         `https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd`
-        );
-        const data = await response.json();
-        const usd = data.ethereum.usd.toFixed(2);
-        setUsdPrice(usd);
-      }
+      );
+      const data = await response.json();
+      const usd = data.ethereum.usd.toFixed(2);
+      setUsdPrice(usd);
+    }
 
     getPrice();
 
   }, []);
 
   async function handleFormSubmit(address: string) {
-    const response = await getCollectionSalesData(address);
-    setNftData(response);
+    try {
+      const response = await getCollectionSalesData(address);
+      setNftData(response);
 
-    const _holders = await getCollectionHolders(address);
-    setHolders(_holders);
-    const apikey = 'x5pi1Ykrq9fnCchoIdswHu9ijWHflqIs';
+      const _holders = await getCollectionHolders(address);
+      setHolders(_holders);
+      const apikey = 'x5pi1Ykrq9fnCchoIdswHu9ijWHflqIs';
 
-    const data = await fetch(`https://eth-mainnet.g.alchemy.com/nft/v3/${apikey}/getContractMetadata?contractAddress=${address}`);
-    const result = await data.json();
-    setCollectionMetadata(result);
+      const data = await fetch(`https://eth-mainnet.g.alchemy.com/nft/v3/${apikey}/getContractMetadata?contractAddress=${address}`);
+      const result = await data.json();
+      setCollectionMetadata(result);
+    } catch (error) {
+      <div
+        className="mb-4 rounded-lg bg-danger-100 px-6 py-5 text-base text-danger-700"
+        role="alert">
+        Please enter a valid collection address
+      </div>
+      console.log(error);
+    }
   };
-  
+
   return (
-      <section className="min-h-fit background-radial-gradient overflow-hidden mb-10">
+    <section className="min-h-fit background-radial-gradient overflow-hidden mb-10">
       <div className="px-6 py-12 lg:py-24 md:px-12 text-center lg:text-left">
         <div className="container mx-auto xl:px-32 text-gray-800">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="mt-12 lg:mt-0" style={{zIndex: 10}}>
+            <div className="mt-12 lg:mt-0" style={{ zIndex: 10 }}>
               <h1 className="text-5xl md:text-6xl xl:text-7xl font-bold tracking-tight mb-12" style={{ color: 'hsl(218, 81%, 95%)' }}>Unlock the <br /><span style={{ color: 'hsl(218, 81%, 75%)' }}>full potential <br /> of your NFT Collections</span></h1>
               <p className="font-semibold opacity-70 text-stone-100 text-md lg:text-xl" >
-              NFTInsight is the ultimate platform to manage and analyse any NFT collections. 
-              With our advanced search and analytics tools, you can quickly gain insights into the value of your collection.
+                NFTInsight is the ultimate platform to manage and analyse any NFT collections.
+                With our advanced search and analytics tools, you can quickly gain insights into the value of your collection.
               </p>
             </div>
             <div className="mb-12 lg:mb-0 relative">
               <div id="radius-shape-1" className="absolute rounded-full shadow-lg"></div>
               <div id="radius-shape-2" className="absolute shadow-lg"></div>
-              <PriceCard usdPrice={usdPrice}/>
+              <PriceCard usdPrice={usdPrice} />
               <div className="block rounded-lg shadow-lg bg-glass px-6 py-12 md:px-12 mx-5 text-center content-center">
-              {/** Form here */}
+                {/** Form here */}
                 <h2 className="text-2xl py-5 text-gray-600">Search for a collection</h2>
                 <form
-                  className="flex flex-col md:flex-row items-center justify-center w-auto" 
-                  onSubmit={e => {
-                  e.preventDefault();
-                  console.log(address)
-                  handleFormSubmit(address);
+                  className="flex flex-col md:flex-row items-center justify-center w-auto"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    console.log(address)
+                    handleFormSubmit(address);
                   }}>
                   <input
                     type="text"
@@ -75,25 +84,20 @@ export const Hero = () => {
                     id="address"
                     placeholder="Enter collection address"
                   />
-                    <button className=" text-white bg-blue-600 rounded-sm p-2 hover:bg-blue-400 mt-3 md:mt-0" type="submit">Search</button>
-                  </form>
+                  <button className=" text-white bg-blue-600 rounded-sm p-2 hover:bg-blue-400 mt-3 md:mt-0" type="submit">Search</button>
+                </form>
               </div>
             </div>
           </div>
         </div>
       </div>
-      {/** Features here */}
-
-
-
-
       {/** Form result here */}
-      { nftData && (
-      <div className="flex flex-col items-center justify-center">
-        {collectionMetadata && (<FormResult data={nftData} holders={holders} usd={usdPrice} contractdata={collectionMetadata} />)}
-      </div>
+      {nftData && (
+        <div className="flex flex-col items-center justify-center">
+          {collectionMetadata && (<FormResult data={nftData} holders={holders} usd={usdPrice} contractdata={collectionMetadata} />)}
+        </div>
 
       )}
     </section>
-    )
+  )
 }

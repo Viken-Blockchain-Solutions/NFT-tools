@@ -9,7 +9,7 @@ export const Features = () => {
         Empowering NFT<u className="text-blue-600"> creators and deployers!</u>
         </h2>
         <p className="text-gray-500 mb-12">
-        NFT Analytics is the premier tool for managing and analyzing your NFTs collections revenue. With our comprehensive analytics and powerful features, you can easily stay on top of your digital assets.
+        NFTInsight is the premier tool for managing and analyzing your NFTs collections revenue. With our comprehensive analytics and powerful features, you can easily stay on top of your digital assets.
         </p>
       </div>
     </div>
