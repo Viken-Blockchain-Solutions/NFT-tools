@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import logo from '../public/Viken.jpg'
+import logo from '../public/logo-white.png'
 
 const NavBar = () => {
   
@@ -32,8 +32,8 @@ const NavBar = () => {
                 ></path>
               </svg>
             </button>
-            <a className="navbar-brand text-blue-600" href="#!">
-              <Image src={logo} alt='vbs'width={100}  height={100}/>
+            <a className="navbar-brand text-blue-600" href="https://vikenblockchain.com">
+              <Image src={logo} alt='vbs'width={100}  height={100} className='w-1/2'/>
             </a>
           </div>
           <div className="navbar-collapse collapse grow items-center" id="navbarSupportedContentY">
@@ -50,8 +50,8 @@ const NavBar = () => {
             </ul>
           </div>
           <div className="flex items-center lg:ml-auto">
-            <button type="button" className="inline-block px-6 py-2.5 mr-2 bg-transparent text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:text-blue-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 transition duration-150 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="light">Login</button>
-            <button type="button" className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="light">Sign up for free</button>
+            <button type="button" className=" hidden inline-block px-6 py-2.5 mr-2 bg-transparent text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:text-blue-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 transition duration-150 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="light">Login</button>
+            <button type="button" className="hidden inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="light">Sign up for free</button>
           </div>
         </div>
       </nav>

@@ -6,7 +6,7 @@ export const PriceCard = ({usdPrice} :  {usdPrice: number}) => {
               <h4>ETH Price</h4>
             </div>
             <div className=" mb-5 font-semibold">
-              <h4 className='text-green-500 opacity-90'><span className="text-gray-700 font-semibold">$ </span>{usdPrice}</h4>
+              <h4 className='text-green-600 opacity-90'><span className="text-gray-700 font-semibold">$ </span>{usdPrice}</h4>
             </div>
           </div>
     </div>
