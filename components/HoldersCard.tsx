@@ -1,7 +1,6 @@
 'use client'
-import "tw-elements/dist/css/tw-elements.min.css";
 import { TableList } from './TableList';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import {
     Modal,
     Ripple,
@@ -11,10 +10,11 @@ import {
   
 export const HoldersCard = ({ holdersData}: { holdersData: any }) => {
     
-    initTE({ Modal, Ripple });
-
+    useEffect(() => {
+        initTE({ Modal, Ripple });
+    }, []);
     const { holders, holding } = holdersData;
-
+    
     const downloadCSV = useCallback(() => {
         const csvData = holders?.owners?.reduce((csvString: any, holder: any, index: any) => {
             let row = `${index + 1},${holder}\n`;
@@ -107,11 +107,10 @@ export const HoldersCard = ({ holdersData}: { holdersData: any }) => {
                                 Close
                             </button>
                             <button
-                                type="button"
                                 className="ml-1 inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
                                 data-te-ripple-init
                                 data-te-ripple-color="light"
-                                onSubmit={downloadCSV}
+                                onClick={downloadCSV}
                             >
                                 Download to CSV
                             </button>

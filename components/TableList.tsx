@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GetOwnersForContractResponse } from "alchemy-sdk";
 
 export const TableList = ({ holders }: { holders: GetOwnersForContractResponse }) => {
@@ -14,24 +14,6 @@ export const TableList = ({ holders }: { holders: GetOwnersForContractResponse }
     const handlePageChange = (pageNumber: number) => {
         setCurrentPage(pageNumber);
     }
-
-    const downloadCSV = useCallback(() => {
-        const csvData = holders?.owners.reduce((csvString, holder, index) => {
-            let row = `${index + 1},${holder}\n`;
-            return csvString + row;
-        }, "Index,Address\n");
-
-        const blob = new Blob([csvData], { type: 'text/csv' });
-        const url = window.URL.createObjectURL(blob);
-
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'holders.csv';
-
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }, [holders]);
 
     return (
         <>
@@ -112,12 +94,6 @@ export const TableList = ({ holders }: { holders: GetOwnersForContractResponse }
                             </button>
                         </li>
                     </ul>
-                   {/*  <button 
-                        className="relative block bg-blue-600 rounded-lg px-3 py-1.5 text-sm  transition-all duration-30 text-white hover:bg-neutral-700 hover:text-white"
-                        onClick={downloadCSV}
-                    >
-                        Download CSV
-                    </button> */}
                 </nav>
             </div>
         </>

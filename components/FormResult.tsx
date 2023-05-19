@@ -1,12 +1,12 @@
 'use client';
 
-import { GetNftSalesResponse, NftSale, GetOwnersForContractResponse } from "alchemy-sdk";
+import { GetNftSalesResponse, NftSale } from "alchemy-sdk";
 import { parseEther } from "ethers";
 import { useState, useEffect } from "react";
 import { NftCard } from "./NftCard";
 import { NFTCollection } from "@/types";
 
-export const FormResult = ({ data, holders, usd, contractdata }: { data: GetNftSalesResponse, holders: GetOwnersForContractResponse, usd: number, contractdata: NFTCollection }) => {
+export const FormResult = ({ data, holders, usd, contractdata }: { data: GetNftSalesResponse, holders: any, usd: number, contractdata: NFTCollection }) => {
     const [sales, setSales] = useState(0);
     const [royalty, setRoyalty] = useState("0");
     const [nonRoyalty, setNonRoyalty] = useState(0);

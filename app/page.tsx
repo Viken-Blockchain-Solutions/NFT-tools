@@ -1,6 +1,6 @@
 import { Features } from '@/components/Features';
 import { Hero } from '@/components/Hero';
-import "tw-elements/dist/css/tw-elements.min.css";
+
 
 export default function Home() {
 
