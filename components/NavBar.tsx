@@ -1,5 +1,7 @@
 import Image from 'next/image'
-import logo from '../public/logo-white.png'
+import logo from '../public/assets/images/logo-white.png'
+import { useState, useEffect } from 'react';
+import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 
 const NavBar = () => {
   
