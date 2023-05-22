@@ -1,7 +1,7 @@
 import { NFTCollection } from "@/types";
 import { HoldersCard } from "./HoldersCard";
 import Image from "next/image";
-import logo from "../public/Viken.jpg";
+import logo from "../public/assets/images/Viken.jpg";
 import { GetOwnersForContractResponse } from "alchemy-sdk";
   
   

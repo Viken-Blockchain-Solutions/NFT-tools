@@ -1,10 +1,13 @@
 'use client'
-import { getCollectionHolders, getCollectionSalesData } from "@/lib/blockchain";
+import { getCollectionHolders, getCollectionSalesData } from "@lib/blockchain";
 import { GetNftSalesResponse, GetOwnersForContractResponse } from "alchemy-sdk";
 import { useEffect, useState } from "react";
 import { FormResult } from "./FormResult";
 import { PriceCard } from "./PriceCard";
 import { NFTCollection } from "@/types";
+import "tw-elements";
+import { set } from "mongoose";
+
 
 export const Hero = () => {
   const [address, setAddress] = useState("");
@@ -12,16 +15,21 @@ export const Hero = () => {
   const [holders, setHolders] = useState<GetOwnersForContractResponse>();
   const [collectionMetadata, setCollectionMetadata] = useState<NFTCollection>();
   const [usdPrice, setUsdPrice] = useState(0);
+  const [isError, setIsError] = useState(false);
 
 
   useEffect(() => {
     const getPrice = async () => {
-      const response = await fetch(
-        `https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd`
-      );
-      const data = await response.json();
-      const usd = data.ethereum.usd.toFixed(2);
-      setUsdPrice(usd);
+      try {
+        const response = await fetch(
+          `https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd`
+        );
+        const data = await response.json();
+        const usd = data.ethereum.usd.toFixed(2);
+        setUsdPrice(usd);
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     getPrice();
@@ -36,17 +44,17 @@ export const Hero = () => {
       const _holders = await getCollectionHolders(address);
       setHolders(_holders);
       const apikey = 'x5pi1Ykrq9fnCchoIdswHu9ijWHflqIs';
-
       const data = await fetch(`https://eth-mainnet.g.alchemy.com/nft/v3/${apikey}/getContractMetadata?contractAddress=${address}`);
       const result = await data.json();
+      if(result.tokenType === 'NOT_A_CONTRACT' || result.tokenType === 'UNKNOWN')  { 
+        console.log("This is error: ", result.tokenType);
+        setIsError(true);
+      }
       setCollectionMetadata(result);
+
     } catch (error) {
-      <div
-        className="mb-4 rounded-lg bg-danger-100 px-6 py-5 text-base text-danger-700"
-        role="alert">
-        Please enter a valid collection address
-      </div>
-      console.log(error);
+      console.log("This is error: ",error);
+      setIsError(true);
     }
   };
 
@@ -55,9 +63,9 @@ export const Hero = () => {
       <div className="px-6 py-12 lg:py-24 md:px-12 text-center lg:text-left">
         <div className="container mx-auto xl:px-32 text-gray-800">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="mt-12 lg:mt-0" style={{ zIndex: 10 }}>
-              <h1 className="text-5xl md:text-6xl xl:text-7xl font-bold tracking-tight mb-12" style={{ color: 'hsl(218, 81%, 95%)' }}>Unlock the <br /><span style={{ color: 'hsl(218, 81%, 75%)' }}>full potential <br /> of your NFT Collections</span></h1>
-              <p className="font-semibold opacity-70 text-stone-100 text-md lg:text-xl" >
+            <div className="mt-12 lg:mt-0 z-10" >
+              <h1 className="head_text text-white my-10 md:text-6xl xl:text-7xl">Unlock the <br /><span className="orange_gradient">full potential <br /> of your NFT Collections</span></h1>
+              <p className="text-center text-stone-50 text-md lg:text-xl desc" >
                 NFTInsight is the ultimate platform to manage and analyse any NFT collections.
                 With our advanced search and analytics tools, you can quickly gain insights into the value of your collection.
               </p>
@@ -87,12 +95,43 @@ export const Hero = () => {
                   <button className=" text-white bg-blue-600 rounded-sm p-2 hover:bg-blue-400 mt-3 md:mt-0" type="submit">Search</button>
                 </form>
               </div>
+            {isError && (
+              <>
+                <div className="relative alert-dismissible mb-3 hidden w-full items-center rounded-lg bg-yellow-100 px-6 py-5 text-base text-yellow-700 data-[te-alert-show]:inline-flex"
+                  role="alert"
+                  data-te-alert-init
+                  data-te-alert-show
+                  data-te-autohide="true"
+                  id="my-alert">
+                  <p>Please enter a valid collection address</p>
+                  <button
+                    type="button"
+                    className="ml-auto text-center box-content h-4 w-4 rounded-none border-none p-1 text-yellow-900 opacity-50 hover:text-yellow-900 hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"
+                    data-te-alert-dismiss
+                    data-te-target="#my-alert"
+                    aria-label="Close"
+                    onClick={() => setIsError(false)}>
+                    <span
+                      className="w-[1em] focus:opacity-100 disabled:pointer-events-none disabled:select-none disabled:opacity-25 [&.disabled]:pointer-events-none [&.disabled]:select-none [&.disabled]:opacity-25">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 16 16"
+                        fill="#000">
+                        <path
+                          d="M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z" />
+                      </svg>
+                    </span>
+                    CLOSE
+                  </button>
+                </div>
+              </>
+            )}
             </div>
           </div>
         </div>
       </div>
       {/** Form result here */}
-      {nftData && (
+      {!isError && nftData && (
         <div className="flex flex-col items-center justify-center">
           {collectionMetadata && (<FormResult data={nftData} holders={holders} usd={usdPrice} contractdata={collectionMetadata} />)}
         </div>

@@ -1,6 +1,6 @@
-import Footer from '../components/Footer';
-import NavBar from '@/components/NavBar';
-import './globals.css';
+import Footer from '@components/Footer';
+import NavBar from '@components/NavBar';
+import 'styles/globals.css';
 import "tw-elements/dist/css/tw-elements.min.css";
 import { Roboto } from "next/font/google";
 
@@ -20,8 +20,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={roboto.className}>
+        <div className='main'>
+          <div className='gradient'/>
+        </div>
+
         <NavBar />
+        <main className='app'>
           {children}
+        </main>
         <Footer />
       </body>
     </html>
