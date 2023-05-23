@@ -1,12 +1,8 @@
 'use client'
 import { TableList } from './TableList';
 import { useCallback, useEffect } from 'react';
-import {
-    Modal,
-    Ripple,
-    initTE,
-  } from "tw-elements"; 
-
+import { Modal, Ripple, initTE } from "tw-elements"; 
+import "tw-elements/dist/css/tw-elements.min.css";
   
 export const HoldersCard = ({ holdersData}: { holdersData: any }) => {
     

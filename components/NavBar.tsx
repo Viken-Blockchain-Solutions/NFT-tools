@@ -4,7 +4,7 @@ import logo from '../public/assets/images/logo-white.png'
 import { useState, useEffect } from 'react';
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 import Link from 'next/link';
-import { set } from 'mongoose';
+import "tw-elements";
 
 
 
@@ -27,30 +27,6 @@ const NavBar = () => {
       <nav className="navbar navbar-expand-lg shadow-md py-2 bg-white relative flex items-center w-full justify-between">
         <div className="px-6 w-full flex flex-wrap items-center justify-between">
           <div className="flex items-center">
-            <button
-              className="navbar-toggler border-0 py-3 lg:hidden leading-none text-xl bg-transparent text-gray-600 hover:text-gray-700 focus:text-gray-700 transition-shadow duration-150 ease-in-out mr-2"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContentY"
-              aria-controls="navbarSupportedContentY"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <svg
-                aria-hidden="true"
-                focusable="false"
-                data-prefix="fas"
-                className="w-5"
-                role="img"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-              >
-                <path
-                  fill="currentColor"
-                  d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
-                ></path>
-              </svg>
-            </button>
             <Link className="navbar-brand text-blue-600" href="https://vikenblockchain.com">
               <Image src={logo} alt='vbs' width={100} height={100} className='w-1/2' />
             </Link>
@@ -75,7 +51,7 @@ const NavBar = () => {
                   <Link href='/dashboard' className='black_btn'>
                     Dashboard
                   </Link>
-                  <button type="button" className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" onClick={signOut()} data-mdb-ripple="true" data-mdb-ripple-color="light">Sign Out</button>
+                  <button type="button" className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" onClick={() => signOut()} data-mdb-ripple="true" data-mdb-ripple-color="light">Sign Out</button>
                     <div className='flex'>
                     <Image
                       className='rounded-full'

@@ -44,13 +44,12 @@ export const Hero = () => {
       const _holders = await getCollectionHolders(address);
       setHolders(_holders);
       const apikey = 'x5pi1Ykrq9fnCchoIdswHu9ijWHflqIs';
-      const data = await fetch(`https://eth-mainnet.g.alchemy.com/nft/v3/${apikey}/getContractMetadata?contractAddress=${address}`,
-        {mode: 'no-cors'});
+      const data = await fetch(`https://eth-mainnet.g.alchemy.com/nft/v3/${apikey}/getContractMetadata?contractAddress=${address}`);
       const result = await data.json();
-      if(result.tokenType === 'NOT_A_CONTRACT' || result.tokenType === 'UNKNOWN')  { 
+      /* if(result.tokenType === 'NOT_A_CONTRACT' || result.tokenType === 'UNKNOWN')  { 
         console.log("This is error: ", result.tokenType);
         setIsError(true);
-      }
+      } */
       setCollectionMetadata(result);
 
     } catch (error) {
