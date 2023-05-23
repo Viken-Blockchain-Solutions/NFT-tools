@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/react';
 import 'styles/globals.css';
 import "tw-elements/dist/css/tw-elements.min.css";
 import { Roboto } from "next/font/google";
+import { Provider } from '@components/Provider';
 
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
@@ -13,23 +14,21 @@ export const metadata = {
 }
 
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({children}: {children: React.ReactNode}) { 
   return (
     <html lang="en">
       <body className={roboto.className}>
+        <Provider >
         <div className='main'>
           <div className='gradient'/>
         </div>
 
-        <NavBar />
         <main className='app'>
-          {children}
+        <NavBar />
+        {children}
         </main>
         <Footer />
+        </Provider>
         <Analytics />
       </body>
     </html>
