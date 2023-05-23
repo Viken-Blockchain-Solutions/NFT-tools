@@ -10,7 +10,8 @@ import "tw-elements";
 
 
 const NavBar = () => {
-  const isUserLoggedIn = true;
+  const { data: session } = useSession();
+
   const [providers, setProviders] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
@@ -31,31 +32,17 @@ const NavBar = () => {
               <Image src={logo} alt='vbs' width={100} height={100} className='w-1/2' />
             </Link>
           </div>
-          <div className="navbar-collapse collapse grow items-center" id="navbarSupportedContentY">
-            <ul className="navbar-nav mr-auto lg:flex lg:flex-row">
-              <li className="nav-item">
-                <a className="nav-link block pr-2 lg:px-2 py-2 text-gray-600 hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Dashboard</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link block pr-2 lg:px-2 py-2 text-gray-600 hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Team</a>
-              </li>
-              <li className="nav-item mb-2 lg:mb-0">
-                <a className="nav-link block pr-2 lg:px-2 py-2 text-gray-600 hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Projects</a>
-              </li>
-            </ul>
-          </div>
-          <div className="sm:flex hidden items-center lg:ml-auto">
-            {isUserLoggedIn ? (
+          <div className="sm:flex hidden ">
+            {session?.user ? (
               <div className='flex items-center'>
                 <div className='flex gap-3 md:gap-5'>
                   <Link href='/dashboard' className='black_btn'>
                     Dashboard
                   </Link>
-                  <button type="button" className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" onClick={() => signOut()} data-mdb-ripple="true" data-mdb-ripple-color="light">Sign Out</button>
                     <div className='flex'>
                     <Image
                       className='rounded-full'
-                      src="/assets/images/logo.svg"
+                      src="@/assets/images/logo.svg"
                       alt='profile web3'
                       width={37}
                       height={37}
@@ -101,8 +88,9 @@ const NavBar = () => {
 
 
         {/* Mobile */}
-        <div className="sm:hidden flex relative navbar-collapse collapse w-full" id="navbarSupportedContentY">
-          {isUserLoggedIn ? (
+        <div className="sm:hidden flex relative w-full">
+    
+            {session?.user ? (
             <div className='flex'>{ }
               <Image
                 className='rounded-full'
