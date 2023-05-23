@@ -18,7 +18,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="en">
       <body className={roboto.className}>
-        <Provider >
+        <Provider session={null}>
         <div className='main'>
           <div className='gradient'/>
         </div>
