@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image'
-import logo from '../public/assets/images/logo-white.png'
+import logo_white from '../public/assets/images/logo-white.png'
+import logo from '../public/assets/images/logo.png'
 import { useState, useEffect } from 'react';
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 import Link from 'next/link';
@@ -29,7 +30,7 @@ const NavBar = () => {
         <div className="px-6 w-full flex flex-wrap items-center justify-between">
           <div className="flex items-center">
             <Link className="navbar-brand text-blue-600" href="https://vikenblockchain.com">
-              <Image src={logo} alt='vbs' width={100} height={100} className='w-1/2' />
+              <Image src={logo_white} alt='vbs' width={100} height={100} className='w-1/2' />
             </Link>
           </div>
           <div className="sm:flex hidden ">
@@ -42,7 +43,7 @@ const NavBar = () => {
                     <div className='flex'>
                     <Image
                       className='rounded-full'
-                      src="@/assets/images/logo.svg"
+                      src={logo}
                       alt='profile web3'
                       width={37}
                       height={37}
@@ -94,7 +95,7 @@ const NavBar = () => {
             <div className='flex'>{ }
               <Image
                 className='rounded-full'
-                src="/assets/images/logo.svg"
+                src={logo}
                 alt='profile web3'
                 width={37}
                 height={37}
