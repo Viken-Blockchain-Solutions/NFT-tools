@@ -5,6 +5,7 @@ import 'styles/globals.css';
 import "tw-elements/dist/css/tw-elements.min.css";
 import { Roboto } from "next/font/google";
 import { Provider } from '@components/Provider';
+import { Session } from "next-auth";
 
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
