@@ -11,7 +11,7 @@ export const connectToDB = async () => {
     }
 
     try {
-        await mongoose.connect('mongodb+srv://dadogg80:d5lrhtGkzin7LhJC@vbs-tools.puz8zyo.mongodb.net/?retryWrites=true&w=majority', {
+        await mongoose.connect(process.env.MONGODB_URI, {
             dbName: 'share_prompt',
         });
         
