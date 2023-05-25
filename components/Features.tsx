@@ -5,8 +5,8 @@ export const Features = () => {
     <section className="min-h-fit mb-32 text-gray-800 text-center mx-10">
     <div className="flex justify-center">
       <div className="text-center max-w-[700px]">
-        <h2 className="text-3xl font-bold mb-6 text-center">
-        Empowering NFT<u className="text-blue-600"> creators and deployers!</u>
+        <h2 className="text-4xl md:text-2xl sm:text-base font-bold mb-6 text-center">
+        Empowering NFT <u className="text-blue-600 font-extrabold">Creators and Deployers!</u>
         </h2>
         <p className="text-gray-500 mb-12">
         NFTInsight is the premier tool for managing and analyzing your NFTs collections revenue. With our comprehensive analytics and powerful features, you can easily stay on top of your digital assets.
@@ -39,7 +39,7 @@ export const Features = () => {
         </div>
         <h5 className="text-lg font-bold mb-4">Advanced analytics and insights</h5>
         <p className="text-gray-500">
-         Get detailed insights into your collection’s metadata and attributes with our advanced analytics capabilities. Track performance trends over time to help you optimize each asset in your portfolio.
+         Get detailed insights into your collection&quot;s metadata and attributes with our advanced analytics capabilities. Track performance trends over time to help you optimize each asset in your portfolio.
         </p>
       </div>
 

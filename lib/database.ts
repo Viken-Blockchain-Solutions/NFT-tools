@@ -11,14 +11,14 @@ export const connectToDB = async () => {
     }
 
     try {
-        await mongoose.connect(process.env.MONGODB_URI, {
-            dbName: 'share_prompt',
+        await mongoose.connect(process.env.MONGODB_URI as string, {
+            dbName: 'nft_insight',
         });
         
         isConnected = true;
         console.log("Mongoose is connected");
 
     } catch (error){
-        console.log(error);
+        console.log("Something Failed!", error);
     }
 };
