@@ -27,7 +27,7 @@ const NavBar = () => {
   return (
     <>
 
-      <nav className="navbar navbar-expand-lg shadow-md py-2 bg-white relative flex items-center w-full justify-between">
+      <nav className="navbar navbar-expand-lg shadow-md py-2 bg-white glassmorphism relative flex items-center w-screen justify-between">
         <div className="px-6 w-full flex flex-wrap items-center justify-between">
           <div className="flex items-center">
             <Link className="navbar-brand text-blue-600" href="https://vikenblockchain.com">

@@ -8,12 +8,13 @@ const Dashboard: React.FC = () => {
   return (
     <>
       {session?.user && (
-        <div className="min-w-full min-h-screen flex flex-row">
-          <aside className="bg-gray-800 text-white py-4 w-64">
+        <div className="w-screen h-full flex flex-row">
+
+          <aside className="text-black py-4 glassmorphism m-10">
             <div className="px-4">
               <h1 className="text-2xl font-bold">NFTInsight</h1>
               <ul className="mt-4">
-                <hr className="bg-white w-1/2 my-5" />
+                <hr className="bg-purple-900 w-1/2 my-5" />
                 <li className="py-2">Profile</li>
                 <li className="py-2">Settings</li>
                 <li className="py-2">Dashboard</li>
@@ -21,48 +22,84 @@ const Dashboard: React.FC = () => {
             </div>
           </aside>
 
-          <main className="flex-1 min-w-full px-12 ">
-            <header className="bg-gray-200 py-4">
-              <nav className="container m-10">
-                <div className="flex flex-row justify-center">
-                  <h3 className="text-2xl font-bold">Welcome To NFTInsight</h3>
-                  <p className="text-md font-semibold">Coming Soon</p>
+          <main className="flex-1 p-12 ">
+            <header className="bg-gray-50 py-4 glassmorphism">
+              <nav className="container mx-12">
+                <div className="flex flex-col justify-center">
+                  <h1 className="text-5xl font-bold">Welcome To NFTInsight</h1>
+                  <p className="text-md mb-12 font-semibold">More features coming Soon</p>
                 </div>
               </nav>
             </header>
 
+
+            <section className='feed'>
+              <form action="" className="relative w-full flex-center">
+                <input
+                  type="text"
+                  className="search_input peer"
+                  placeholder="Search for an address or a collection name"
+                  value={""}
+                  onChange={() => { }}
+                  required
+                />
+              </form>
+            </section>
+
+
             <section id="overview" className="container mx-auto mt-8">
-              <div className="bg-white p-4 rounded-lg">
-                <h2 className="text-lg font-bold mb-4">Overview</h2>
-                <p className="text-gray-600">
-                  You have a total of 10 NFT collections.
-                </p>
-                <p className="text-gray-600">
-                  Total Revenue: $10,000
-                </p>
-                <p className="text-gray-600">
-                  Total Royalty Earned: $1,000
-                </p>
+              <div className="bg-white p-4 rounded-lg glassmorphism">
+                <div>
+                  <h2 className="text-lg font-bold mb-4">Overview</h2>
+                  <p className="text-gray-600">
+                    You have a total of 10 NFT collections.
+                  </p>
+                  <p className="text-gray-600">
+                    Total Revenue: $10,000
+                  </p>
+                  <p className="text-gray-600">
+                    Total Royalty Earned: $1,000
+                  </p>
+                </div>
+                <div className="mt-8">
+                  <h3 className="text-xl font-bold mb-4">Collections</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="p-4 rounded-lg glassmorphism">
+                      <h3 className="text-lg font-bold">Collection 1</h3>
+                      <p className="text-gray-600">Total Sales: 100</p>
+                      <p className="text-gray-600">Total Owners: 50</p>
+                      <p className="text-gray-600">Average Price: $100</p>
+                      <p className="text-gray-600">Total Royalty Earned: $1,000</p>
+                    </div>
+                    <div className="p-4 rounded-lg glassmorphism">
+                      <h3 className="text-lg font-bold">Collection 2</h3>
+                      <p className="text-gray-600">Total Sales: 100</p>
+                      <p className="text-gray-600">Total Owners: 50</p>
+                      <p className="text-gray-600">Average Price: $100</p>
+                      <p className="text-gray-600">Total Royalty Earned: $1,000</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </section>
 
             <section id="statistics" className="container mx-auto mt-8">
-              <div className="bg-white p-4 rounded-lg">
+              <div className="bg-white p-4 rounded-lg glassmorphism">
                 <h2 className="text-lg font-bold mb-4">Statistics</h2>
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-gray-200 p-4 rounded-lg">
+                  <div className="p-4 rounded-lg glassmorphism">
                     <h3 className="text-lg font-bold">Total Sales</h3>
                     <p className="text-gray-600">100</p>
                   </div>
-                  <div className="bg-gray-200 p-4 rounded-lg">
+                  <div className="p-4 rounded-lg glassmorphism">
                     <h3 className="text-lg font-bold">Total Owners</h3>
                     <p className="text-gray-600">50</p>
                   </div>
-                  <div className="bg-gray-200 p-4 rounded-lg">
+                  <div className="p-4 rounded-lg glassmorphism">
                     <h3 className="text-lg font-bold">Average Price</h3>
                     <p className="text-gray-600">$100</p>
                   </div>
-                  <div className="bg-gray-200 p-4 rounded-lg">
+                  <div className="p-4 rounded-lg glassmorphism">
                     <h3 className="text-lg font-bold">Total Royalty Earned</h3>
                     <p className="text-gray-600">$1,000</p>
                   </div>
@@ -72,17 +109,17 @@ const Dashboard: React.FC = () => {
 
 
             <section id="charts" className="container mx-auto mt-8">
-              <div className="bg-white p-4 rounded-lg">
+              <div className="bg-white p-4 rounded-lg glassmorphism">
                 <h2 className="text-lg font-bold mb-4">Charts & Tables</h2>
                 <div className="flex justify-center">
-                  <div className="w-64 h-64 bg-gray-200 rounded-lg">
+                  <div className="w-64 h-64 glassmorphism rounded-lg">
                     {/* Add your chart component or chart library integration here */}
                   </div>
                 </div>
                 <div className="mt-8">
                   <h3 className="text-xl font-bold mb-4">Table Title</h3>
                   <table className="w-full border">
-                    <thead className="bg-gray-200">
+                    <thead className="bg-gray-200 bg-glass">
                       <tr>
                         <th className="border px-4 py-2">Column 1</th>
                         <th className="border px-4 py-2">Column 2</th>
@@ -106,7 +143,7 @@ const Dashboard: React.FC = () => {
 
 
             <section id="notifications" className="container mx-auto mt-8">
-              <div className="bg-white p-4 rounded-lg">
+              <div className="bg-white p-4 rounded-lg glassmorphism">
                 <h2 className="text-lg font-bold mb-4">Notifications</h2>
                 <div className="space-y-4">
                   <div className="flex items-center">
@@ -138,7 +175,7 @@ const Dashboard: React.FC = () => {
             </section>
 
 
-            <footer className="bg-gray-200 py-4 my-12">
+            <footer className="bg-gray-200  my-12 py-12 glassmorphism">
               <div className="container mx-auto">
                 <p className="text-center text-gray-600">
 
