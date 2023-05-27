@@ -49,7 +49,7 @@ const NavBar = () => {
                   <div className='flex'>
                     <Image
                       className='rounded-full'
-                      src={session.user.image as string}
+                      src={session?.user?.image as string}
                       alt='profile web3'
                       width={37}
                       height={37}
@@ -100,7 +100,7 @@ const NavBar = () => {
           {session?.user ? (
             <div className="flex">
               <Image
-                src={session.user.image as string || logo}
+                src={session.user.image as string}
                 width={37}
                 height={37}
                 className="rounded-full"

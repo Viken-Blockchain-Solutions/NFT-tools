@@ -6,6 +6,7 @@ import { FormResult } from "./FormResult";
 import { PriceCard } from "./PriceCard";
 import { NFTCollection } from "@/types";
 import "tw-elements";
+import { Form } from "../app/dashboard/sections/Form";
 
 
 
@@ -53,7 +54,7 @@ export const Hero = () => {
       setCollectionMetadata(result);
 
     } catch (error) {
-      console.log("This is error: ",error);
+      console.log("This is error: ", error);
       setIsError(true);
     }
   };
@@ -95,37 +96,37 @@ export const Hero = () => {
                   <button className=" text-white bg-blue-600 rounded-sm p-2 hover:bg-blue-400 mt-3 md:mt-0" type="submit">Search</button>
                 </form>
               </div>
-            {isError && (
-              <>
-                <div className="relative alert-dismissible mb-3 hidden w-full items-center rounded-lg bg-yellow-100 px-6 py-5 text-base text-yellow-700 data-[te-alert-show]:inline-flex"
-                  role="alert"
-                  data-te-alert-init
-                  data-te-alert-show
-                  data-te-autohide="true"
-                  id="my-alert">
-                  <p>Please enter a valid collection address</p>
-                  <button
-                    type="button"
-                    className="ml-auto text-center box-content h-4 w-4 rounded-none border-none p-1 text-yellow-900 opacity-50 hover:text-yellow-900 hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"
-                    data-te-alert-dismiss
-                    data-te-target="#my-alert"
-                    aria-label="Close"
-                    onClick={() => setIsError(false)}>
-                    <span
-                      className="w-[1em] focus:opacity-100 disabled:pointer-events-none disabled:select-none disabled:opacity-25 [&.disabled]:pointer-events-none [&.disabled]:select-none [&.disabled]:opacity-25">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 16 16"
-                        fill="#000">
-                        <path
-                          d="M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z" />
-                      </svg>
-                    </span>
-                    CLOSE
-                  </button>
-                </div>
-              </>
-            )}
+              {isError && (
+                <>
+                  <div className="relative alert-dismissible mb-3 hidden w-full items-center rounded-lg bg-yellow-100 px-6 py-5 text-base text-yellow-700 data-[te-alert-show]:inline-flex"
+                    role="alert"
+                    data-te-alert-init
+                    data-te-alert-show
+                    data-te-autohide="true"
+                    id="my-alert">
+                    <p>Please enter a valid collection address</p>
+                    <button
+                      type="button"
+                      className="ml-auto text-center box-content h-4 w-4 rounded-none border-none p-1 text-yellow-900 opacity-50 hover:text-yellow-900 hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"
+                      data-te-alert-dismiss
+                      data-te-target="#my-alert"
+                      aria-label="Close"
+                      onClick={() => setIsError(false)}>
+                      <span
+                        className="w-[1em] focus:opacity-100 disabled:pointer-events-none disabled:select-none disabled:opacity-25 [&.disabled]:pointer-events-none [&.disabled]:select-none [&.disabled]:opacity-25">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 16 16"
+                          fill="#000">
+                          <path
+                            d="M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z" />
+                        </svg>
+                      </span>
+                      CLOSE
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
