@@ -12,7 +12,7 @@ export const metadata = {
   title: 'NFTInsight',
   description: 'NFTInsight is an analytics and management tool for NFT Creators and Deployers',
 }
-
+  
 
 export default function RootLayout({children}: {children: React.ReactNode}) { 
   return (
