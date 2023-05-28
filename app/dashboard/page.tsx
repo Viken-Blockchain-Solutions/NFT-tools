@@ -16,10 +16,9 @@ const Dashboard: React.FC = () => {
   return (
     <>
       {session?.user && (
-        <div className="w-screen h-full flex flex-row">
+        <div className="w-full flex flex-row">
           <Sidebar />
-
-          <main className="flex-1 p-12">
+          <main className="flex-1 pt-10 mx-auto">
             <Header />
             <Search />
             <Overview session={session}/>
@@ -29,6 +28,7 @@ const Dashboard: React.FC = () => {
             <hr className="my-12" />
             <DashboardFooter />
           </main>
+          <Sidebar />
         </div>
       )}
     </>

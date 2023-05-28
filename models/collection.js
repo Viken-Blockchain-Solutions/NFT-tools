@@ -1,21 +1,24 @@
 import { Schema, models, model } from "mongoose";
 
-const collectionSchema = new Schema({
-    address: {
-        type: String,
-        unique: [true, "Collection already exists"],
-        required: [true, "Collection is required"],
+// Create Schema
+const nftSchema = new Schema({
+    // creator is the user who deployed the collection
+    creator: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
     },
-    username: {
+    // the address of the smart-contract
+    contractAddress: {
         type: String,
-        required: [true, 'Username is required!'],
-        match: [/^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/, "Username invalid, it should contain 8-20 alphanumeric letters and be unique!"]
+        unique: [true, "NFT-Collection already exists"],
+        required: [true, "NFT-Collection is required"],
     },
+    // the collection image
     image: {
         type: String,
     }
 });
 
-const Collection = models.Collection || model("Collection", collectionSchema);
+const NFTCollection = models.NFTCollection || model("NFTCollection", nftSchema);
 
-export default Collection;
+export default NFTCollection;
