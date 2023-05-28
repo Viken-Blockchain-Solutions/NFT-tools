@@ -4,7 +4,7 @@ import Overview from "./Overview";
 import Statistics from "./Statistics";
 import Charts from "./Charts";
 import Notifications from "./Notifications";
-import Footer from "./Footer";
+import Footer from "./DashboardFooter";
 
 export const Collections = () => {
     return (

@@ -1,3 +1,4 @@
+import Sidebar from "@components/Sidebar"
 
 export const metadata = {
     title: 'NFTInsight',
@@ -8,8 +9,8 @@ export const metadata = {
   export default function DashboardLayout({children}: {children: React.ReactNode}) { 
     return (
         <>
-        <div className='max-w-screen'>
-            {children}
+        <div className='w-screen'>
+              {children}
         </div>
         </>
     )
