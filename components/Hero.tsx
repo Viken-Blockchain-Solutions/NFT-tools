@@ -6,7 +6,7 @@ import { FormResult } from "./FormResult";
 import { PriceCard } from "./PriceCard";
 import { NFTCollection } from "@/types";
 import "tw-elements";
-import { Form } from "../app/dashboard/sections/Form";
+
 
 
 

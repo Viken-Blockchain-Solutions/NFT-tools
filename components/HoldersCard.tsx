@@ -2,12 +2,12 @@
 import { TableList } from './TableList';
 import { useCallback, useEffect } from 'react';
 import { Modal, Ripple, initTE } from "tw-elements"; 
-import "tw-elements/dist/css/tw-elements.min.css";
+
   
 export const HoldersCard = ({ holdersData}: { holdersData: any }) => {
     
-   useEffect(() => {
-        initTE({ Modal, Ripple });
+    useEffect(() => {
+       initTE({ Modal, Ripple });
     }, []);
     
     const { holders, holding } = holdersData;
@@ -32,7 +32,7 @@ export const HoldersCard = ({ holdersData}: { holdersData: any }) => {
 
     return (
         <>
-            <div className="flex-col-1 whitespace-normal border py-4 shadow-xl px-5">
+            <div className="flex-col-1 whitespace-normal border py-4 shadow-xl px-5 glassmorphism">
                 <h5 className="text-gray-900 text-sm leading-tight font-medium mb-2">Total Holders</h5>
                 <p className="text-gray-700 text-xs mb-4">{holding}</p>
                 <button
@@ -88,7 +88,7 @@ export const HoldersCard = ({ holdersData}: { holdersData: any }) => {
                         </div>
 
                         {/** Modal body */}
-                        <div className="relative p-4">
+                        <div className="p-4">
                             <TableList holders={holders}/>
                         </div>
 

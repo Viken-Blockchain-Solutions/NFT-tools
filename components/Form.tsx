@@ -2,7 +2,7 @@
 import { getCollectionHolders, getCollectionSalesData } from "@lib/blockchain";
 import { GetNftSalesResponse, GetOwnersForContractResponse } from "alchemy-sdk";
 import { useState } from "react";
-import { FormResult } from "../../../components/FormResult";
+import { FormResult } from "./FormResult";
 import { NFTCollection } from "@/types";
 import "tw-elements";
 
@@ -23,6 +23,7 @@ export const Form = async () => {
     
           const _holders = await getCollectionHolders(address);
           setHolders(_holders);
+          
           const apikey = 'x5pi1Ykrq9fnCchoIdswHu9ijWHflqIs';
           const data = await fetch(`https://eth-mainnet.g.alchemy.com/nft/v3/${apikey}/getContractMetadata?contractAddress=${address}`);
           const result = await data.json();
