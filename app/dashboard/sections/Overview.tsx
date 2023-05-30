@@ -46,19 +46,26 @@ const Overview = ({collectionMetadata}: {collectionMetadata: NFTCollection}) => 
                         <h3 className="text-xl font-bold mb-4">Collections</h3>
                         <div className="grid grid-cols-2 gap-4">
                             <div className="p-4 rounded-lg glassmorphism">
-                                <div className="border my-1 p-1">
+                                <div className="flex flex-row border gap-2 my-1 p-1 text-center">
                                     <h3 className="text-lg font-bold">{name}</h3>
                                     <p className="text-xs text-white bg-amber-500 p-1 max-w-fit">{symbol}</p>
                                 </div>
-                                <div className="flex flex-row border gap-2 my-1 p-1">
-                                    <p className="mb-4 mt-0 text-base font-light leading-relaxed">Total supply: {totalSupply}</p>
-                                    <hr className="h-1/2 text-purple-600"/>
-                                    <p className="text-gray-600">Token type: {tokenType}</p>
+                                <div className="flex flex-row border gap-2 my-1 p-1 text-center">
+                                    <p className="mb-4 mt-0 text-base font-light leading-relaxed">Total supply:  <span className="text-xs text-wrap">{totalSupply}</span></p>
+                                    <p className="mb-4 mt-0 text-base font-light leading-relaxed">Token type: <span className="text-xs text-wrap">{tokenType}</span></p>
                                 </div>
-                                <p className="text-gray-600">Deployed At Block: {deployedBlockNumber}</p>
-                                <p className="text-gray-600">Collection Address: {address}</p>
-                                <p className="text-gray-600">Collection deployer: {contractDeployer}</p>
-                                <p className="text-gray-600">External Url: {externalUrl}</p>
+                                <div className="flex flex-row border gap-2 my-1 p-1 text-center">
+                                    <p className="mb-4 mt-0 text-base font-light leading-relaxed">Block Deployed: <span className="text-xs text-wrap">{deployedBlockNumber}</span></p>
+                                    <p className="mb-4 mt-0 text-base font-light leading-relaxed">Collection Address: <span className="text-xs text-wrap">{address}</span></p>
+                                </div>
+                                <div className="flex flex-row border gap-2 my-1 p-1">
+                                    <p className="mb-4 mt-0 text-base font-light leading-relaxed">Collection deployer: <span className="text-xs text-wrap">{contractDeployer}</span></p>
+                                    <p className="mb-4 mt-0 text-base font-light leading-relaxed">External Url: <span className="text-xs text-wrap">{externalUrl}</span></p>
+                                </div>
+                                <div className="flex flex-row border gap-2 my-1 p-1">
+                                    <p className="mb-4 mt-0 text-base font-light leading-relaxed">Last Ingested At: <span className="text-xs text-wrap">{lastIngestedAt}</span></p>
+                                    <p className="mb-4 mt-0 text-base font-light leading-relaxed">Safelist Request Status: <span className="text-xs text-wrap">{safelistRequestStatus}</span></p>
+                                </div>
                                 <div className="flex flex-row gap-2">
                                 <Link href={`https://twitter.com/${twitterUsername}`} >
                                     <svg
@@ -85,14 +92,12 @@ const Overview = ({collectionMetadata}: {collectionMetadata: NFTCollection}) => 
                                     </svg>
                                 </Link>
                                 </div>
-                                <p className="text-gray-600">Last Ingested At: {lastIngestedAt}</p>
-                                <p className="text-gray-600">Floor Price: {floorPrice}</p>
-                                <p className="text-gray-600">Safelist Request Status: {safelistRequestStatus}</p>
+                                <p className="mb-4 mt-0 text-base font-light leading-relaxed">Floor Price: <span>{floorPrice}</span></p>
                             </div>
                             <div className="p-4 rounded-lg glassmorphism">
                                 <Image src={imageUrl} className="rounded-full my-2" alt="Collection Image" width={45} height={45} priority/>
-                                <h3 className="text-lg font-bold">{collectionName}</h3>
-                                <p className="mb-4 mt-2 text-sm font-light leading-relaxed">{description}</p>
+                                <h3 className="mb-4 mt-0 text-base font-light leading-relaxed">{collectionName}</h3>
+                                <p className="mb-4 mt-0 text-base font-light leading-relaxed">{description}</p>
                            
                             </div>
                         </div>
