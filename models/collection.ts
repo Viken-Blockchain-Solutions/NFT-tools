@@ -26,6 +26,6 @@ const nftCollectionSchema = new Schema<INFTCollection>({
     }
 });
 
-const NFTCollection: Model<INFTCollection> = models.NFTCollection || model("NFTCollection", nftCollectionSchema);
+const Collection: Model<INFTCollection> = models.NFTCollection || model("NFTCollection", nftCollectionSchema);
 
-export default NFTCollection;
+export default Collection;

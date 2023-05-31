@@ -1,6 +1,6 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next';
-import NFTCollection from '@/models/NFTCollection';
+import NFTCollection from '@models/collection';
 
 interface RequestBody {
   userId: string;

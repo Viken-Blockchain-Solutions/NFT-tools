@@ -11,6 +11,7 @@ export interface OpenSeaMetadata {
   }
   
 export interface NFTCollection {
+    json(): { address: any; userId: any; } | PromiseLike<{ address: any; userId: any; }>;
     address: string;
     name: string;
     symbol: string;
