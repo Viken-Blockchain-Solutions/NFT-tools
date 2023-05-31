@@ -17,7 +17,7 @@ const Dashboard = async () => {
   const [nftData, setNftData] = useState<GetNftSalesResponse>();
   const [holders, setHolders] = useState<GetOwnersForContractResponse>();
   const [royaltyData, setRoyaltyData] = useState<{}>({});
-
+  const [newCollectionAddress, setNewCollectionAddress] = useState('');
   
   
   useEffect(() => {
@@ -52,13 +52,53 @@ const Dashboard = async () => {
     }  
   }, [address]);  
 
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    try {
+      console.log(session?.user?.id.toString())
+      const response = await fetch('/api/addCollections', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: session?.user, 
+          address: newCollectionAddress,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add address');
+      }
+
+      // Do something with the response
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
       <div>
         {session?.user && (
+          <>
           <Search address={address} setAddress={setAddress} setCollectionMetadata={setCollectionMetadata} />
+          <div className="flex flex-row justify-between">
+              <form onSubmit={handleSubmit}>
+                <input
+                  type="text"
+                  value={newCollectionAddress}
+                  onChange={e => setNewCollectionAddress(e.target.value)}
+                />
+                <button type="submit">Add Address</button>
+              </form>
+          </div>
+          </>
         )}
+
         <hr className="my-8 bg-purple-700 w-1/2" />
         {collectionMetadata && (
           <Overview collectionMetadata={collectionMetadata} />
