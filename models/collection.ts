@@ -1,14 +1,14 @@
-import { Schema, Document, models, model, Model, Types } from "mongoose";
+import { Schema, models, model, Model, Types } from "mongoose";
 
 
-interface INFTCollection extends Document {
+interface ICollection {
     creator: Types.ObjectId;
     contractAddress: string[];
     image: string;
 }
 
 // Create Schema
-const nftCollectionSchema = new Schema<INFTCollection>({
+const nftCollectionSchema = new Schema<ICollection>({
     // creator is the user who deployed the collection
     creator: {
         type: Schema.Types.ObjectId,
@@ -18,7 +18,7 @@ const nftCollectionSchema = new Schema<INFTCollection>({
     // the address of the smart-contracts
     contractAddress: [{
         type: String,
-        validate: [(addr: string[] | any[]) => addr.length <= 20, 'A user can only have up to 20 addresses.']
+        required: [true, "Contract address is required"],
     }],
     // the collection image
     image: {
@@ -26,6 +26,6 @@ const nftCollectionSchema = new Schema<INFTCollection>({
     }
 });
 
-const Collection: Model<INFTCollection> = models.NFTCollection || model("NFTCollection", nftCollectionSchema);
+const Collection: Model<ICollection> = models.Collection || model("Collection", nftCollectionSchema);
 
 export default Collection;

@@ -14,14 +14,12 @@ const StoreAddress = () => {
     const { data: session } = useSession();
     const router = useRouter();
     const [submitting, setSubmitting] = useState(false);
-    const [collection, setCollection] = useState<StoreAddressProps>({
-        address: ""
-    });
+    const [collection, setCollection] = useState<StoreAddressProps>({address: ""});
 
-    const storeAddress = async (e: React.SyntheticEvent) => {
+    const storeAddress = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
         setSubmitting(true);
-        
+        console.log(session?.user?.id)
         try {
             const res = await fetch('/api/storeaddress/new', {
                 method: 'POST',
@@ -41,12 +39,13 @@ const StoreAddress = () => {
     }
 
     return (
-        <AddressForm 
-            type ="create"
+        <AddressForm
             collection={collection}
-            setCollectionAddress={setCollection}
+            setCollection={setCollection}
             submitting={submitting}
             handleSubmit={storeAddress}
         />
     )
 }
+
+export default StoreAddress;

@@ -2,7 +2,7 @@ import Link from "next/link"
 
 
 
-const AddressForm = async ({ type, collection, setCollection, submitting, handleSubmit }: {type: string, collection: any, setCollection: any, submitting: boolean, handleSubmit: any}) => {
+const AddressForm = ({ collection, setCollection, submitting, handleSubmit }: {collection: any, setCollection: any, submitting: boolean, handleSubmit: any}) => {
   return (
     <section className="w-full max-x-full flex-start flex-col">
       <h1 className="head_text text_left"><span>Store your collection</span></h1>

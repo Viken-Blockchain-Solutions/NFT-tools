@@ -1,8 +1,6 @@
 import { NFTCollection } from '@types'
 
-const Search = ({ address, setAddress, setCollectionMetadata }: { address: string, setAddress: any, setCollectionMetadata: any }) => {
-
-
+const Search = ({ address, setAddress, setCollectionMetadata, handleSubmit }: { address: string, setAddress: any, setCollectionMetadata: any, handleSubmit: any}) => {
 
   async function handleFormSubmit(address: string) {
     try {
@@ -39,6 +37,9 @@ const Search = ({ address, setAddress, setCollectionMetadata }: { address: strin
         />
         <button className=" text-white bg-blue-600 rounded-sm p-2 hover:bg-blue-400 mt-3 md:mt-0" type="submit">Search</button>
       </form>
+      <div className="flex flex-row justify-between">
+        {address !== ' ' && (<a onClick={handleSubmit}>Store Collection</a>)}
+      </div>
     </section>
   )
 }

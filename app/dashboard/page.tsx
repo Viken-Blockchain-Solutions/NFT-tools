@@ -7,29 +7,21 @@ import Overview from "./sections/Overview";
 import { NFTCollection, OpenSeaMetadata } from '@types';
 import { GetNftSalesResponse, GetOwnersForContractResponse } from 'alchemy-sdk';
 import Stats from './sections/Stats';
+import { useRouter } from 'next/navigation';
 
 
 const Dashboard = async () => {
   const { data: session } = useSession();
+  const router = useRouter();
   const [address, setAddress] = useState<string>(' ');
   const [collectionMetadata, setCollectionMetadata] = useState<NFTCollection>();
   const [openSeaMetadata, setOpenSeaMetadata] = useState<OpenSeaMetadata>();
   const [nftData, setNftData] = useState<GetNftSalesResponse>();
   const [holders, setHolders] = useState<GetOwnersForContractResponse>();
   const [royaltyData, setRoyaltyData] = useState<{}>({});
-  const [newCollectionAddress, setNewCollectionAddress] = useState('');
+  const [submitting, setSubmitting] = useState(false);
   
   
-  useEffect(() => {
-    setOpenSeaMetadata(collectionMetadata?.openSeaMetadata);
-    /* if (openSeaMetadata) {
-      console.log("This is collectionMetadata: ", collectionMetadata);
-      console.log("This is openSeaMetadata: ", openSeaMetadata);
-      console.log("This is nftData: ", nftData?.nftSales);
-      console.log("This is holders: ", holders?.owners);
-    } */
-  }, [collectionMetadata, openSeaMetadata, nftData, holders]);
-
   useEffect(() => {
     if (address !== ' ') {
       try {
@@ -52,31 +44,38 @@ const Dashboard = async () => {
     }  
   }, [address]);  
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+  useEffect(() => {
+    if (collectionMetadata?.openSeaMetadata) {
+      setOpenSeaMetadata(collectionMetadata?.openSeaMetadata);
+    } else {
+      setOpenSeaMetadata(undefined);
+    }
+  }, []);
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    
     try {
-      console.log(session?.user?.id.toString())
-      const response = await fetch('/api/addCollections', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId: session?.user, 
-          address: newCollectionAddress,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to add address');
-      }
-
-      // Do something with the response
-      const data = await response.json();
-      console.log(data);
+        if (!session?.user) {
+          throw new Error('User not logged in');
+        }
+        console.log("This is session: ", session.user);
+        const res = await fetch('/api/storeaddress/new', {
+            method: 'POST',
+            body: JSON.stringify({
+                address: address,
+                userId: session?.user?.id,
+            })
+        })
+        if(res.ok){
+          console.log("This is res: ", res);
+             router.push('/')
+        }
     } catch (error) {
-      console.error(error);
+        console.error(error)
+    } finally {
+        setSubmitting(false)
     }
   };
 
@@ -85,17 +84,13 @@ const Dashboard = async () => {
       <div>
         {session?.user && (
           <>
-          <Search address={address} setAddress={setAddress} setCollectionMetadata={setCollectionMetadata} />
-          <div className="flex flex-row justify-between">
-              <form onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  value={newCollectionAddress}
-                  onChange={e => setNewCollectionAddress(e.target.value)}
-                />
-                <button type="submit">Add Address</button>
-              </form>
-          </div>
+          <Search 
+            address={address} 
+            setAddress={setAddress} 
+            setCollectionMetadata={setCollectionMetadata} 
+            handleSubmit={handleSubmit}
+          />
+          
           </>
         )}
 
@@ -105,7 +100,11 @@ const Dashboard = async () => {
         )}
         <hr className="my-8" />
         {collectionMetadata && (
-          <Stats nftData={nftData} holders={holders} royaltyData={royaltyData} />
+          <Stats 
+            nftData={nftData} 
+            holders={holders} 
+            royaltyData={royaltyData} 
+          />
         )}
       </div>
     </>
