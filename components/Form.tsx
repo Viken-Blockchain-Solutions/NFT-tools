@@ -4,7 +4,6 @@ import { GetNftSalesResponse, GetOwnersForContractResponse } from "alchemy-sdk";
 import { useState } from "react";
 import { FormResult } from "./FormResult";
 import { NFTCollection } from "@/types";
-import "tw-elements";
 
 
 export const Form = async () => {

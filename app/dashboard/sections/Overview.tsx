@@ -3,9 +3,10 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "@/public/assets/images/Viken.jpg";
+import { OpenSeaMetadata } from '../../../types';
 
 
-const Overview = ({collectionMetadata}: {collectionMetadata: NFTCollection}) => {
+const Overview = (collectionMetadata: NFTCollection) => {
     const { data: session } = useSession();
     const {address, name, symbol, totalSupply, tokenType, contractDeployer, deployedBlockNumber, openSeaMetadata } = collectionMetadata;
     const { floorPrice, collectionName, safelistRequestStatus, imageUrl, description, externalUrl, twitterUsername, discordUrl, lastIngestedAt } = openSeaMetadata;

@@ -19,12 +19,14 @@ const StoreAddress = () => {
     const storeAddress = async (e: any) => {
         e.preventDefault();
         setSubmitting(true);
+        //@ts-ignore
         console.log(session?.user?.id)
         try {
             const res = await fetch('/api/collections/new', {
                 method: 'POST',
                 body: JSON.stringify({
                     address: collection.address,
+                    //@ts-ignore
                     userId: session?.user?.id,
                 })
             })

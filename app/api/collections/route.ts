@@ -7,7 +7,6 @@ export const GET = async ( request: Request ) => {
 
         // find all collections by creator
         const collections = await Collection.find({}).populate('creator');
-        console.log("All Collections of user:", collections);
 
         return new Response(JSON.stringify(collections), {status: 200});
         

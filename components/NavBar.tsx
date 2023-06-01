@@ -5,7 +5,6 @@ import logo from '../public/assets/images/logo.png'
 import { useState, useEffect } from 'react';
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 import Link from 'next/link';
-import "tw-elements";
 
 
 

@@ -8,23 +8,24 @@ import { NFTCollection, OpenSeaMetadata } from '@types';
 import { GetNftSalesResponse, GetOwnersForContractResponse } from 'alchemy-sdk';
 import Stats from './sections/Stats';
 import { useRouter } from 'next/navigation';
-import USerCollections from './sections/UserCollections';
 
 
 const Dashboard = async () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [address, setAddress] = useState<string>(' ');
-  const [collectionMetadata, setCollectionMetadata] = useState<NFTCollection>();
+  const [collectionMetadata, setCollectionMetadata] = useState<NFTCollection | undefined>(undefined);
   const [openSeaMetadata, setOpenSeaMetadata] = useState<OpenSeaMetadata>();
   const [nftData, setNftData] = useState<GetNftSalesResponse>();
   const [holders, setHolders] = useState<GetOwnersForContractResponse>();
-  const [royaltyData, setRoyaltyData] = useState<{}>({});
+  const [royaltyData, setRoyaltyData] = useState({});
   const [submitting, setSubmitting] = useState(false);
+  //@ts-ignore
+  const userId = session?.user?.id;
   
   
   useEffect(() => {
-    if (address !== ' ') {
+    if (submitting) {
       try {
         const fetchCollectionData = async () => {
           const holdersRes = getCollectionHolders(address);
@@ -43,15 +44,15 @@ const Dashboard = async () => {
         console.log("Error fetching collection data: ", error)
       }
     }  
-  }, [address]);  
+  }, [address, submitting]);  
 
   useEffect(() => {
-    if (collectionMetadata?.openSeaMetadata) {
+    if (collectionMetadata) {
       setOpenSeaMetadata(collectionMetadata?.openSeaMetadata);
     } else {
-      setOpenSeaMetadata(undefined);
+      return;
     }
-  }, []);
+  },[collectionMetadata]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,18 +62,18 @@ const Dashboard = async () => {
         if (!session?.user) {
           throw new Error('User not logged in');
         }
-        const _id = session?.user?.id;
-        console.log("This is session userId: ", _id);
+        
         const res = await fetch('/api/collection/new', {
             method: 'POST',
             body: JSON.stringify({
                 address: address,
-                userId: _id
+                userId: userId
             })
         })
+
         if(res.ok){
           console.log("This is res: ", res);
-             router.push('/')
+             router.push('/dashboard')
         }
     } catch (error) {
         console.error(error)

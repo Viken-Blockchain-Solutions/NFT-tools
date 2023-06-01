@@ -13,7 +13,7 @@ export interface OpenSeaMetadata {
   }
   
 export interface NFTCollection {
-    json(): { address: any; userId: any; } | PromiseLike<{ address: any; userId: any; }>;
+    json(): { address: string; userId: string; } | PromiseLike<{ address: string; userId: string; }>;
     address: string;
     name: string;
     symbol: string;
