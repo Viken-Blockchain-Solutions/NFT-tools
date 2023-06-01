@@ -8,7 +8,7 @@ const UserCollections = () => {
     // defaults to empty array
     const [allCollections, setAllCollections] = useState();
 
-    console.log("allcollections",allCollections)
+    console.log("allcollections", allCollections?.[0]);
     useEffect(() => {
         const fetchFromDB = async () => {
             const response = await fetch("/api/collections");
