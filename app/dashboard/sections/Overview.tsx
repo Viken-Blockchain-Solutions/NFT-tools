@@ -8,7 +8,7 @@ import logo from "@/public/assets/images/Viken.jpg";
 const Overview = (collectionMetadata: NFTCollection) => {
     const { data: session } = useSession();
     const {address, name, symbol, totalSupply, tokenType, contractDeployer, deployedBlockNumber, openSeaMetadata } = collectionMetadata;
-    const { floorPrice, collectionName, safelistRequestStatus, imageUrl, description, externalUrl, twitterUsername, discordUrl, lastIngestedAt } = openSeaMetadata;
+   
     
 
     return (
@@ -42,9 +42,6 @@ const Overview = (collectionMetadata: NFTCollection) => {
                             </div>
                         </div>
                     </div>
-                    {openSeaMetadata && (
-                        <>
-                     
                     <div className="mt-8">
                         <h3 className="text-xl font-bold mb-4">Collections</h3>
                         <div className="grid grid-cols-2 gap-4">
@@ -63,14 +60,14 @@ const Overview = (collectionMetadata: NFTCollection) => {
                                 </div>
                                 <div className="flex flex-row border gap-2 my-1 p-1">
                                     <p className="mb-4 mt-0 text-base font-light leading-relaxed">Collection deployer: <span className="text-xs text-wrap">{contractDeployer}</span></p>
-                                    <p className="mb-4 mt-0 text-base font-light leading-relaxed">External Url: <span className="text-xs text-wrap">{externalUrl || " "}</span></p>
+                                    <p className="mb-4 mt-0 text-base font-light leading-relaxed">External Url: <span className="text-xs text-wrap">{openSeaMetadata?.externalUrl || " "}</span></p>
                                 </div>
                                 <div className="flex flex-row border gap-2 my-1 p-1">
-                                    <p className="mb-4 mt-0 text-base font-light leading-relaxed">Last Ingested At: <span className="text-xs text-wrap">{lastIngestedAt}</span></p>
-                                    <p className="mb-4 mt-0 text-base font-light leading-relaxed">Safelist Request Status: <span className="text-xs text-wrap">{safelistRequestStatus || "None"}</span></p>
+                                    <p className="mb-4 mt-0 text-base font-light leading-relaxed">Last Ingested At: <span className="text-xs text-wrap">{openSeaMetadata?.lastIngestedAt}</span></p>
+                                    <p className="mb-4 mt-0 text-base font-light leading-relaxed">Safelist Request Status: <span className="text-xs text-wrap">{openSeaMetadata?.safelistRequestStatus || "None"}</span></p>
                                 </div>
                                 <div className="flex flex-row gap-2">
-                                <Link href={`https://twitter.com/${twitterUsername}` || " "} >
+                                <Link href={`https://twitter.com/${openSeaMetadata?.twitterUsername}` || " "} >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         className="h-7 w-7"
@@ -81,7 +78,7 @@ const Overview = (collectionMetadata: NFTCollection) => {
                                             d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
                                     </svg>
                                 </Link>
-                                <Link href={discordUrl || " "} >
+                                <Link href={openSeaMetadata?.discordUrl || " "} >
                                     <svg
                                         className="h-7 w-7"
                                         fill="currentColor"
@@ -95,18 +92,16 @@ const Overview = (collectionMetadata: NFTCollection) => {
                                     </svg>
                                 </Link>
                                 </div>
-                                <p className="mb-4 mt-0 text-base font-light leading-relaxed">Floor Price: <span>{floorPrice || 0}</span></p>
+                                <p className="mb-4 mt-0 text-base font-light leading-relaxed">Floor Price: <span>{openSeaMetadata?.floorPrice || 0}</span></p>
                             </div>
                             <div className="p-4 rounded-lg glassmorphism">
-                                <Image src={imageUrl || logo} className="rounded-full my-2" alt="Collection Image" width={45} height={45} priority/>
-                                <h3 className="mb-4 mt-0 text-base font-light leading-relaxed">{ collectionName || "Update the description on OpenSea" }</h3>
-                                <p className="mb-4 mt-0 text-base font-light leading-relaxed">{ description || "Update the description on OpenSea" }</p>
+                                <Image src={openSeaMetadata?.imageUrl || logo} className="rounded-full my-2" alt="Collection Image" width={45} height={45} priority/>
+                                <h3 className="mb-4 mt-0 text-base font-light leading-relaxed">{ openSeaMetadata?.collectionName || "Update the description on OpenSea" }</h3>
+                                <p className="mb-4 mt-0 text-base font-light leading-relaxed">{ openSeaMetadata?.description || "Update the description on OpenSea" }</p>
                            
                             </div>
                         </div>
                     </div>
-                    </>
-                    )}
                 </div>
             </section>
        </>

@@ -18,7 +18,7 @@ const Dashboard = async () => {
   const [openSeaMetadata, setOpenSeaMetadata] = useState<OpenSeaMetadata>();
   const [nftData, setNftData] = useState<GetNftSalesResponse>();
   const [holders, setHolders] = useState<GetOwnersForContractResponse>();
-  const [royaltyData, setRoyaltyData] = useState({});
+  const [royaltyData, setRoyaltyData] = useState<{}>({});
   const [submitting, setSubmitting] = useState(false);
   //@ts-ignore
   const userId = session?.user?.id;
