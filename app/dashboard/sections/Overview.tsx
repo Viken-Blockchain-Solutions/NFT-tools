@@ -3,7 +3,6 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "@/public/assets/images/Viken.jpg";
-import { OpenSeaMetadata } from '../../../types';
 
 
 const Overview = (collectionMetadata: NFTCollection) => {

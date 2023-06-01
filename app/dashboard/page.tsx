@@ -14,7 +14,7 @@ const Dashboard = async () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [address, setAddress] = useState<string>(' ');
-  const [collectionMetadata, setCollectionMetadata] = useState<NFTCollection | undefined>(undefined);
+  const [collectionMetadata, setCollectionMetadata] = useState<NFTCollection>();
   const [openSeaMetadata, setOpenSeaMetadata] = useState<OpenSeaMetadata>();
   const [nftData, setNftData] = useState<GetNftSalesResponse>();
   const [holders, setHolders] = useState<GetOwnersForContractResponse>();
@@ -100,9 +100,8 @@ const Dashboard = async () => {
         <hr className="my-8 bg-purple-700 w-1/2" />
         {collectionMetadata && (
           <>
-            <Overview 
-              collectionMetadata={collectionMetadata} 
-            />
+          {/* @ts-ignore */}
+            <Overview collectionMetadata={collectionMetadata} />
             <Stats
               nftData={nftData}
               holders={holders}
