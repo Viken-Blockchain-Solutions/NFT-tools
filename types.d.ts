@@ -1,3 +1,5 @@
+import { Session } from "next-auth";
+
 export interface OpenSeaMetadata {
     floorPrice: number;
     collectionName: string;
@@ -22,4 +24,9 @@ export interface NFTCollection {
     openSeaMetadata: OpenSeaMetadata;
   }
   
-  
+  export interface CustomUser extends Session {
+    id: string;
+    name: string;
+    email: string;
+    image?: string | null;
+}

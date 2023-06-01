@@ -1,8 +1,9 @@
-import { NFTCollection } from '@types'
+import { NFTCollection } from "@types";
 
-const Search = ({ address, setAddress, setCollectionMetadata, handleSubmit }: { address: string, setAddress: any, setCollectionMetadata: any, handleSubmit: any}) => {
+const Search = ({ address, setAddress, setCollectionMetadata, handleSubmit }: { address: string, setAddress: any, setCollectionMetadata: any, handleSubmit: any }) => {
 
   async function handleFormSubmit(address: string) {
+    
     try {
       const apikey = 'x5pi1Ykrq9fnCchoIdswHu9ijWHflqIs';
       const data = await fetch(`https://eth-mainnet.g.alchemy.com/nft/v3/${apikey}/getContractMetadata?contractAddress=${address}`, {cache: 'no-store'});
@@ -12,7 +13,6 @@ const Search = ({ address, setAddress, setCollectionMetadata, handleSubmit }: { 
         console.log("This is error: ", result.tokenType);
       }
       setCollectionMetadata(result);
-
 
     } catch (error) {
       console.log("This is error: ", error);

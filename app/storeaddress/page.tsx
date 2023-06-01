@@ -16,12 +16,12 @@ const StoreAddress = () => {
     const [submitting, setSubmitting] = useState(false);
     const [collection, setCollection] = useState<StoreAddressProps>({address: ""});
 
-    const storeAddress = async (e: { preventDefault: () => void }) => {
+    const storeAddress = async (e: any) => {
         e.preventDefault();
         setSubmitting(true);
         console.log(session?.user?.id)
         try {
-            const res = await fetch('/api/storeaddress/new', {
+            const res = await fetch('/api/collections/new', {
                 method: 'POST',
                 body: JSON.stringify({
                     address: collection.address,

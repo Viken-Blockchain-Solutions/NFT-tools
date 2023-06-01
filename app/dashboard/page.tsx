@@ -8,6 +8,7 @@ import { NFTCollection, OpenSeaMetadata } from '@types';
 import { GetNftSalesResponse, GetOwnersForContractResponse } from 'alchemy-sdk';
 import Stats from './sections/Stats';
 import { useRouter } from 'next/navigation';
+import USerCollections from './sections/UserCollections';
 
 
 const Dashboard = async () => {
@@ -60,12 +61,13 @@ const Dashboard = async () => {
         if (!session?.user) {
           throw new Error('User not logged in');
         }
-        console.log("This is session: ", session.user);
-        const res = await fetch('/api/storeaddress/new', {
+        const _id = session?.user?.id;
+        console.log("This is session userId: ", _id);
+        const res = await fetch('/api/collection/new', {
             method: 'POST',
             body: JSON.stringify({
                 address: address,
-                userId: session?.user?.id,
+                userId: _id
             })
         })
         if(res.ok){
@@ -96,15 +98,16 @@ const Dashboard = async () => {
 
         <hr className="my-8 bg-purple-700 w-1/2" />
         {collectionMetadata && (
-          <Overview collectionMetadata={collectionMetadata} />
-        )}
-        <hr className="my-8" />
-        {collectionMetadata && (
-          <Stats 
-            nftData={nftData} 
-            holders={holders} 
-            royaltyData={royaltyData} 
-          />
+          <>
+            <Overview 
+              collectionMetadata={collectionMetadata} 
+            />
+            <Stats
+              nftData={nftData}
+              holders={holders}
+              royaltyData={royaltyData}
+            />
+          </>
         )}
       </div>
     </>
