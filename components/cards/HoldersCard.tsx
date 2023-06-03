@@ -1,6 +1,6 @@
-'use client'
-import { TableList } from './TableList';
-import { useCallback, useEffect } from 'react';
+
+import { TableList } from '../tables/TableList';
+import { useCallback } from 'react';
 
 
   

@@ -1,3 +1,4 @@
+'use server';
 import mongoose from "mongoose";
 
 let isConnected = false;
@@ -6,8 +7,7 @@ export const connectToDB = async () => {
     mongoose.set('strictQuery', true);
 
     if (isConnected) {
-        console.log("Mongoose is already connected");
-        return;
+        return isConnected;
     }
 
     try {
@@ -16,9 +16,10 @@ export const connectToDB = async () => {
         });
         
         isConnected = true;
-        console.log("Mongoose is connected");
+        return isConnected;
 
     } catch (error){
         console.log("Something Failed!", error);
+        return isConnected;
     }
 };

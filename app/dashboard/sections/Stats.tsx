@@ -1,4 +1,4 @@
-import { HoldersCard } from "@components/HoldersCard";
+import { HoldersCard } from "@components/cards/HoldersCard";
 import Link from "next/link";
 
 const Stats = (data: any) => {

@@ -2,8 +2,8 @@
 import { getCollectionHolders, getCollectionSalesData } from "@lib/blockchain";
 import { GetNftSalesResponse, GetOwnersForContractResponse } from "alchemy-sdk";
 import { useEffect, useState } from "react";
-import { FormResult } from "./FormResult";
-import { PriceCard } from "./PriceCard";
+import { FormResult } from "./forms/FormResult";
+import { PriceCard } from "./cards/PriceCard";
 import { NFTCollection } from "@/types";
 
 

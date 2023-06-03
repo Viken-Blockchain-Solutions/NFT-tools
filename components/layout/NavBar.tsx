@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image'
-import logo_white from '../public/assets/images/logo-white.png'
-import logo from '../public/assets/images/logo.png'
+import logo_white from '@/public/assets/images/logo-white.png'
+import logo from '@/public/assets/images/logo.png'
 import { useState, useEffect } from 'react';
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 import Link from 'next/link';
@@ -29,7 +29,7 @@ const NavBar = () => {
       <nav className="flex-between w-full mb-16 pt-3">
         <div className="px-6 w-full flex flex-wrap items-center justify-between">
           <div className="flex items-center">
-            <Link className="navbar-brand text-blue-600" href="https://vikenblockchain.com">
+            <Link className="navbar-brand text-blue-600" href="/">
               <Image src={logo_white} alt='vbs' width={100} height={100} className='w-1/2' />
             </Link>
           </div>
@@ -42,9 +42,14 @@ const NavBar = () => {
                   <Link href="/dashboard" className="black_btn">
                     Dashboard
                   </Link>
-                  <button type="button" onClick={() => signOut()} className="outline_btn">
-                    Sign Out
-                  </button>
+                  <Link href="/collections" className="black_btn">
+                    Collections
+                  </Link>
+                  <Link href={"/"}>
+                    <button type="button" onClick={() => signOut()} className="outline_btn">
+                      Sign Out
+                    </button>
+                  </Link>
                   <div className='flex'>
                     <Image
                       className='rounded-full'
@@ -55,28 +60,6 @@ const NavBar = () => {
                       priority
                       onClick={() => { setToggleDropdown((prev) => !prev) }}
                     />
-
-                    {toggleDropdown && (
-                      <div className='dropdown '>
-                        <Link
-                          href="/profile"
-                          className='dropdown_link '
-                          onClick={() => { setToggleDropdown(false) }}
-                        >
-                          My Profile
-                        </Link>
-                        <Link
-                          href="/dashboard"
-                          className='dropdown_link'
-                          onClick={() => { setToggleDropdown(false) }}
-                        >
-                          My Dashboard
-                        </Link>
-                        <button type='button' className='dropdown_link' onClick={() => { setToggleDropdown(false); signOut() }}>
-                          Sign Out
-                        </button>
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>

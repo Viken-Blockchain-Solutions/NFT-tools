@@ -3,7 +3,7 @@
 import { GetNftSalesResponse, NftSale } from "alchemy-sdk";
 import { parseEther } from "ethers";
 import { useState, useEffect } from "react";
-import { NftCard } from "./NftCard";
+import { NftCard } from "../cards/NftCard";
 import { NFTCollection } from "@/types";
 
 export const FormResult = ({ data, holders, usd, contractdata }: { data: GetNftSalesResponse, holders: any, usd: number, contractdata: NFTCollection }) => {
