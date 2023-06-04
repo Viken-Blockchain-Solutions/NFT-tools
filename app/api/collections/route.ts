@@ -2,6 +2,7 @@ import { connectToDB } from '@lib/database';
 import Collection from '@/models/collection';
 
 export const GET = async ( request: Request ) => {
+    
     try {
         await connectToDB();
 

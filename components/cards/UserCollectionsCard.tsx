@@ -39,13 +39,12 @@ const UserCollections = () => {
 
   return (
     <div className="w-full my-5">
-      <h2 className="text-sm font-bold py-2">Stored Collections: <span></span></h2>
       <div className="mx-2">
         <ul className="max-w-fit flex flex-col flex-wrap">
          {allCollections?.map((collection) =>
             collection.contractAddress.map((address: string, index: number) => (
               <li key={index} className="text-xs font-satoshi">
-                <p className="text-xs font-satoshi">{abbreviatedAddress(address)}</p>
+                <div className="badge badge-outline p-4">{abbreviatedAddress(address).toLowerCase()}</div>
               </li>
             ))
           )}
