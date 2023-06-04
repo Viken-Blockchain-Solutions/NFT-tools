@@ -1,13 +1,13 @@
 import { connectToDB } from '@lib/database';
-import Collection from '@/models/collection';
+import NftCollection from '@/models/nftCollection';
 
 export const GET = async ( request: Request ) => {
     
     try {
         await connectToDB();
 
-        // find all collections by creator
-        const collections = await Collection.find({}).populate('creator');
+        // find all collections by deployer
+        const collections = await NftCollection.find({}).populate('deployer');
 
         return new Response(JSON.stringify(collections), {status: 200});
         

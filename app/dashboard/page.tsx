@@ -66,15 +66,26 @@ const Dashboard = async () => {
         const res = await fetch('/api/collection/new', {
             method: 'POST',
             body: JSON.stringify({
-                address: address,
-                userId: userId
+              contractAddress: address,
+              deployer: collectionMetadata?.contractDeployer,
+              deployed_Blocknumber: collectionMetadata?.deployedBlockNumber,
+              name: collectionMetadata?.name,
+              image: openSeaMetadata?.imageUrl,
+              symbol: collectionMetadata?.symbol,
+              totalSupply: collectionMetadata?.totalSupply,
+              description: openSeaMetadata?.description,
+              floorPrice: openSeaMetadata?.floorPrice,
+              safelistRequestStatus: openSeaMetadata?.safelistRequestStatus,
+              ingestionHistory: openSeaMetadata?.lastIngestedAt,
+              userId: userId,
             })
         })
 
         if(res.ok){
-          console.log("This is res: ", res);
+          console.log("Stored to DB, This is res: ", res);
              router.push('/dashboard')
         }
+
     } catch (error) {
         console.error(error)
     } finally {

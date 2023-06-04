@@ -1,10 +1,12 @@
-import NextAuth from 'next-auth'
+import { NextApiHandler } from 'next';
+import NextAuth, { DefaultSession, Profile, Session } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import User from '@/models/user';
+import { IUser } from '@/models/user';
 import { connectToDB } from '@/lib/database';
+import { Types } from 'mongoose';
 
-
-const handler = NextAuth({
+const handler: NextApiHandler = NextAuth({
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -12,36 +14,38 @@ const handler = NextAuth({
         })
     ],
     callbacks: {
-
-        async session({ session }: { session: any }) {
-
-            if(!session.user) {
-                console.log("No Session!")
-                return;
+        async session({session}: {session: Session | DefaultSession}) {
+            
+            if(!session.user?.email) {
+              console.log("No Session!")
+              return;
             }
-
+        
             const sessionUser = await User.findOne({
-                email: session.user?.email
+              email: session.user?.email
             });
-
-            session.user.id = sessionUser._id.toString();
+        
+            session.user.id = sessionUser?._id.toString();
             return session;
         },
         
-        async signIn({ profile }) {
+        async signIn({  profile }: { profile: Profile}) {
             try {
                 await connectToDB();
 
                 const userExists = await User.findOne({
                     email: profile?.email
                 });
-                
+
                 if(!userExists) {
-                    await User.create({
+                    const newUser: IUser = {
+                        _id: new Types.ObjectId(),
                         email: profile?.email,
                         username: profile?.name?.replace(' ', '').toLowerCase(),
-                        image: profile?.image,
-                    })
+                        image: profile?.image || '',
+                        nftCollections: [],
+                    }
+                    await User.create(newUser)
                 }
                 return true;
             } catch (error) {
