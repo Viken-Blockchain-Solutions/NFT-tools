@@ -1,8 +1,8 @@
+
 import { connectToDB } from '@lib/database';
 import { NextRequest } from 'next/server';
 import NftCollection, { INftCollection } from '@/models/nftCollection';
 import User from '@/models/user';
-import { Types } from 'mongoose';
 
 
 export const POST = async ( req: NextRequest ) => {
@@ -26,13 +26,11 @@ export const POST = async ( req: NextRequest ) => {
     const connected = await connectToDB();
     
     if (connected) {
-        console.log("MongoDB Connected")
         try {
             // Fetch the user first
             const user = await User.findOne({_id: userId});
-            console.log("Connected to user", user)
 
-            const collection: INftCollection = {
+            const _nftcollection: INftCollection = {
                 _id: _id,
                 contractAddress: contractAddress,
                 deployer: deployer,
@@ -46,22 +44,22 @@ export const POST = async ( req: NextRequest ) => {
                 safelistRequestStatus: safelistRequestStatus ? safelistRequestStatus : undefined,
                 ingestionHistory: ingestionHistory ? ingestionHistory : undefined,
             }
-            console.log("New collection", collection)
             
-            const nftCollection = await NftCollection.create(collection)
+            const nftCollection = await NftCollection.create(_nftcollection)
             
            
-            console.log("New Created collection", nftCollection)
+
 
             // If user doesn't have this collection, add it to their list
-            user?.nftCollections.push({collectionAddress: collection.contractAddress , collection: collection._id});
-            await user?.save();
-            console.log("User updated", user)
-            
-            await nftCollection.save();
-            console.log("Collection saved", nftCollection)
+            user?.nftCollections?.push({
+                collectionAddress: _nftcollection.contractAddress, 
+                nftcollection: _nftcollection._id,
+            });
 
-            return new Response(JSON.stringify(nftCollection), {status: 201});
+            await user?.save();
+            await nftCollection.save();
+
+            return new Response(JSON.stringify({user: user, nftCollection: nftCollection}), {status: 201});
 
         } catch (error) {
             console.log("error:", error);

@@ -1,5 +1,4 @@
 import { connectToDB } from '@lib/database';
-import NftCollection from '@/models/nftCollection';
 import User from '@models/user';
 
 export const GET = async ( request: Request ) => {
@@ -10,11 +9,11 @@ export const GET = async ( request: Request ) => {
         await connectToDB();
   
         // find all collections by deployer
-        const collections = await User.find({}).populate('nftCollections');
-        console.log("collections:", collections)
+        const nftcollections = await User.find({}).populate('nftCollections');
+        console.log("collections:", nftcollections)
         
 
-        return new Response(JSON.stringify(collections), {status: 200});
+        return new Response(JSON.stringify(nftcollections), {status: 200});
         
     } catch (error) {
         console.log("error:", error);

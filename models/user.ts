@@ -5,10 +5,10 @@ export interface IUser {
     email?: string | undefined;
     username?: string | undefined;
     image?: string | undefined;
-    nftCollections: [
+    nftCollections?: [
         {
             collectionAddress: string;
-            collection: Types.ObjectId;
+            nftcollection: Types.ObjectId;
         }
     ];
 }
@@ -36,7 +36,7 @@ const userSchema = new Schema<IUser>({
             collectionAddress: {
                 type: String,
             },
-            collection:{
+            nftcollection:{
                 type: Schema.Types.ObjectId,
                 ref:'NftCollection'
             },

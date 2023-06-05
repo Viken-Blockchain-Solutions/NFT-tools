@@ -6,7 +6,7 @@ import TabWindow from "./sections/tabwindow";
 
 
 
-const CollectionPage = async () => {
+const NFTCollectionPage = async () => {
     const [collectionAddress, setCollectionAddress] = useState<any>({});
     const [collectionsList, setCollectionsList] = useState<any>([]);
     const [dbData, setDBData] = useState<[]>([])
@@ -15,13 +15,13 @@ const CollectionPage = async () => {
 
     useEffect(() => {
         const fetchFromDB = async () => {
-            const response = await fetch("/api/collections");
-            response.json().then((data) => {
-                setDBData(data);
-            });
+            const response = await fetch("/api/collections/");
+            const data = await response.json()
+            console.log("Data form DB: ", data);
+            setDBData(data);
 
-            dbData.map((collection: any) => {
-                collection.contractAddress.map((address: string, index: number) => {
+            dbData.map((nftcollection: any) => {
+                nftcollection.contractAddress.map((address: string, index: number) => {
                     setCollectionsList((prevState: any) => ({
                         ...prevState,
                         [address]: {
@@ -33,8 +33,9 @@ const CollectionPage = async () => {
             });
         };
         fetchFromDB();
+        console.log("collectionsList: ", collectionsList);
 
-    }, []);
+    }, [dbData, collectionAddress, collectionsList]);
 
 
 
@@ -68,4 +69,4 @@ const CollectionPage = async () => {
     )
 }
 
-export default CollectionPage;
+export default NFTCollectionPage;

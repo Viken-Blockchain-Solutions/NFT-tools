@@ -1,15 +1,13 @@
 import { NFTCollection } from "@types";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "@/public/assets/images/Viken.jpg";
+import { abbreviatedAddress } from "@components/cards/UserCollectionsCard";
 
 
-const Overview = (collectionMetadata: NFTCollection) => {
-    const { data: session } = useSession();
-    const {address, name, symbol, totalSupply, tokenType, contractDeployer, deployedBlockNumber, openSeaMetadata } = collectionMetadata;
-   
-    
+const Overview = (collectionMetadata: any) => {
+    const metadata: NFTCollection = collectionMetadata.collectionMetadata;
+    const {address, name, symbol, totalSupply, tokenType, contractDeployer, deployedBlockNumber, openSeaMetadata } = metadata;
 
     return (
         <>
@@ -20,7 +18,7 @@ const Overview = (collectionMetadata: NFTCollection) => {
                         <div className="grid grid-cols-2 gap-4">
                             <div className="p-4 rounded-lg glassmorphism">
                                 <p className="text-gray-600 text-lg">
-                                    User: <span className="font-light text-sm">{session?.user?.name}</span>
+                                    User: <span className="font-light text-sm"></span>
                                 </p>
                                 <p className="text-gray-600">
                                     Subscription:
@@ -56,10 +54,10 @@ const Overview = (collectionMetadata: NFTCollection) => {
                                 </div>
                                 <div className="flex flex-row border gap-2 my-1 p-1 text-center">
                                     <p className="mb-4 mt-0 text-base font-light leading-relaxed">Block Deployed: <span className="text-xs text-wrap">{deployedBlockNumber}</span></p>
-                                    <p className="mb-4 mt-0 text-base font-light leading-relaxed">Collection Address: <span className="text-xs text-wrap">{address}</span></p>
+                                    <p className="mb-4 mt-0 text-base font-light leading-relaxed">Collection Address: <span className="text-xs text-wrap">{abbreviatedAddress(address)}</span></p>
                                 </div>
                                 <div className="flex flex-row border gap-2 my-1 p-1">
-                                    <p className="mb-4 mt-0 text-base font-light leading-relaxed">Collection deployer: <span className="text-xs text-wrap">{contractDeployer}</span></p>
+                                    <p className="mb-4 mt-0 text-base font-light leading-relaxed">Collection deployer: <span className="text-xs text-wrap">{abbreviatedAddress(contractDeployer)}</span></p>
                                     <p className="mb-4 mt-0 text-base font-light leading-relaxed">External Url: <span className="text-xs text-wrap">{openSeaMetadata?.externalUrl || " "}</span></p>
                                 </div>
                                 <div className="flex flex-row border gap-2 my-1 p-1">

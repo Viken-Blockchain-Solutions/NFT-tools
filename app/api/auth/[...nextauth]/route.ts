@@ -44,10 +44,7 @@ const handler: NextApiHandler = NextAuth({
                         email: profile?.email,
                         username: profile?.name?.replace(' ', '').toLowerCase(),
                         image: profile?.image || '',
-                        nftCollections: [{
-                            collectionAddress: '',
-                            collection: new Types.ObjectId(),
-                        }] || [],
+                        
                     }
                     await User.create(newUser)
                 }

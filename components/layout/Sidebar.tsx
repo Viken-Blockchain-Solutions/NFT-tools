@@ -75,8 +75,8 @@ const Sidebar = () => {
             <Link href={"/profile"}>
               <li className="py-2">Profile</li>
             </Link>
-            <Link href={"/collections"}>
-              <li className="py-2">Collections</li>
+            <Link href={"/nftcollections"}>
+              <li className="py-2">Nft Collections</li>
             </Link>
           </ul>
         </div>

@@ -6,7 +6,7 @@ export interface INftCollection {
     deployer: string;
     deployed_blocknumber: number;
     name: string;
-    image: string;
+    image?: string;
     symbol: string;
     totalSupply: number;
     description?: string;
@@ -39,7 +39,6 @@ const nftCollectionSchema = new Schema<INftCollection>({
     },
     image: {
         type: String,
-        required: [true, "Collection image is required"],
     },
     symbol: {
         type: String,
