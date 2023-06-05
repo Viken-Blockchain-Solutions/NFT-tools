@@ -5,13 +5,14 @@ import logo from '@/public/assets/images/logo.png'
 import { useState, useEffect } from 'react';
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 
 
 
 const NavBar = () => {
   const { data: session } = useSession();
-
+  const router = useRouter();
   const [providers, setProviders] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
@@ -42,11 +43,11 @@ const NavBar = () => {
                   <Link href="/dashboard" className="black_btn">
                     Dashboard
                   </Link>
-                  <Link href="/collections" className="black_btn">
+                  <Link href="/nftcollections" className="black_btn">
                     Collections
                   </Link>
                   <Link href={"/"}>
-                    <button type="button" onClick={() => signOut()} className="outline_btn">
+                    <button type="button" onClick={() => {signOut(); router.push('/');}} className="outline_btn">
                       Sign Out
                     </button>
                   </Link>

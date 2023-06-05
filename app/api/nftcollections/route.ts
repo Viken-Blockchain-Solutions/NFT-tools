@@ -7,7 +7,8 @@ export const GET = async ( request: Request ) => {
     
     try {
         await connectToDB();
-  
+        console.log("TRYING TO FIND NFT COLLECTIONS")
+        console.log(User)
         // find all collections by deployer
         const nftcollections = await User.find({}).populate('nftCollections');
         console.log("collections:", nftcollections)

@@ -44,7 +44,6 @@ const handler: NextApiHandler = NextAuth({
                         email: profile?.email,
                         username: profile?.name?.replace(' ', '').toLowerCase(),
                         image: profile?.image || '',
-                        
                     }
                     await User.create(newUser)
                 }
