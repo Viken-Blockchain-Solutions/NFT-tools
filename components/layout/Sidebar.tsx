@@ -75,15 +75,15 @@ const Sidebar = () => {
             <Link href={"/profile"}>
               <li className="py-2">Profile</li>
             </Link>
-            <Link href={"/collections"}>
-              <li className="py-2">Collections</li>
+            <Link href={"/nftcollections"}>
+              <li className="py-2">Nft Collections</li>
             </Link>
           </ul>
         </div>
         <div>
           <hr className="bg-purple-600 w-1/2 my-5" />
           <h2 className="text-sm font-bold">Your stored collections:</h2>
-          <UserCollections />
+          {/* <UserCollections /> */}
           </div>
       </div>
     </aside>
