@@ -1,6 +1,6 @@
 import { Schema, models, model, Model, Types } from "mongoose";
 
-interface INftCollection {
+export interface INftCollection {
     _id: Types.ObjectId;
     contractAddress: string;
     deployer: string;

@@ -8,6 +8,7 @@ import { NFTCollection, OpenSeaMetadata } from '@types';
 import { GetNftSalesResponse, GetOwnersForContractResponse } from 'alchemy-sdk';
 import Stats from './sections/Stats';
 import { useRouter } from 'next/navigation';
+import { Types } from 'mongoose';
 
 
 const Dashboard = async () => {
@@ -63,9 +64,13 @@ const Dashboard = async () => {
           throw new Error('User not logged in');
         }
         
-        const res = await fetch('/api/collection/new', {
+        console.log("This is collectionMetadata: ", collectionMetadata);
+        console.log("This is openSeaMetadata: ", openSeaMetadata);
+
+        const res = await fetch('/api/collections/new', {
             method: 'POST',
             body: JSON.stringify({
+              _id: new Types.ObjectId(),
               contractAddress: address,
               deployer: collectionMetadata?.contractDeployer,
               deployed_Blocknumber: collectionMetadata?.deployedBlockNumber,
@@ -75,11 +80,13 @@ const Dashboard = async () => {
               totalSupply: collectionMetadata?.totalSupply,
               description: openSeaMetadata?.description,
               floorPrice: openSeaMetadata?.floorPrice,
-              safelistRequestStatus: openSeaMetadata?.safelistRequestStatus,
-              ingestionHistory: openSeaMetadata?.lastIngestedAt,
+            /*   safelistRequestStatus: openSeaMetadata?.safelistRequestStatus,
+              ingestionHistory: openSeaMetadata?.lastIngestedAt, */
               userId: userId,
             })
         })
+
+        console.log("res:", res)
 
         if(res.ok){
           console.log("Stored to DB, This is res: ", res);

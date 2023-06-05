@@ -9,7 +9,7 @@ interface ResponseType {
     username: string;
     __v: number;
   };
-  contractAddress: string[];
+  contractAddress: [];
   __v: number;
 }
 

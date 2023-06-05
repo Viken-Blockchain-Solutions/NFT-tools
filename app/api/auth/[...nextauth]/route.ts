@@ -12,6 +12,7 @@ const handler: NextApiHandler = NextAuth({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
         })
+        
     ],
     callbacks: {
         async session({session}: {session: Session | DefaultSession}) {
@@ -43,7 +44,10 @@ const handler: NextApiHandler = NextAuth({
                         email: profile?.email,
                         username: profile?.name?.replace(' ', '').toLowerCase(),
                         image: profile?.image || '',
-                        nftCollections: [],
+                        nftCollections: [{
+                            collectionAddress: '',
+                            collection: new Types.ObjectId(),
+                        }] || [],
                     }
                     await User.create(newUser)
                 }

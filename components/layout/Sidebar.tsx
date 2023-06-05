@@ -83,7 +83,7 @@ const Sidebar = () => {
         <div>
           <hr className="bg-purple-600 w-1/2 my-5" />
           <h2 className="text-sm font-bold">Your stored collections:</h2>
-          <UserCollections />
+          {/* <UserCollections /> */}
           </div>
       </div>
     </aside>

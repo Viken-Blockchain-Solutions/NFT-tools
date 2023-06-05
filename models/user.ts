@@ -5,7 +5,12 @@ export interface IUser {
     email?: string | undefined;
     username?: string | undefined;
     image?: string | undefined;
-    nftCollections: Types.ObjectId[];
+    nftCollections: [
+        {
+            collectionAddress: string;
+            collection: Types.ObjectId;
+        }
+    ];
 }
 
 // Create Schema
@@ -26,10 +31,17 @@ const userSchema = new Schema<IUser>({
     image: {
         type: String,
     },
-    nftCollections: [{
-        type: Schema.Types.ObjectId,
-        ref: 'NftCollection'
-    }]
+    nftCollections: [
+        {
+            collectionAddress: {
+                type: String,
+            },
+            collection:{
+                type: Schema.Types.ObjectId,
+                ref:'NftCollection'
+            },
+        },
+    ]
 });
 
 const User: Model<IUser> = models.User || model("User", userSchema);
