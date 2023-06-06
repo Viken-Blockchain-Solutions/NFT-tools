@@ -1,16 +1,16 @@
+import { IUser } from '@/models/user';
 import { connectToDB } from '@lib/database';
 import User from '@models/user';
+import { NextRequest } from 'next/server';
 
-export const GET = async ( request: Request ) => {
-    
-    const { _id } = await request.json();
+export const GET = async ( request: NextRequest ) => {
     
     try {
         await connectToDB();
         console.log("TRYING TO FIND NFT COLLECTIONS")
         console.log(User)
         // find all collections by deployer
-        const nftcollections = await User.find({}).populate('nftCollections');
+        const nftcollections = await User.find({}).populate('email');
         console.log("collections:", nftcollections)
         
 
