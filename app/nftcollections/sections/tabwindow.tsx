@@ -23,12 +23,11 @@ function TabWindow(dbData: any) {
             const col: any = [];
 
             if (data) {
-                data.map((user: any) => {
-                    console.log(user)
-                    user.nftCollections.map((nft: any) => {
-                        col.push(nft.nftcollection)
+                data.map((collection: any) => {
+                    console.log(collection)
+                        col.push(collection.collection)
                     })
-                })
+                console.log("Col: ", col)
             }
             console.log("Collections: ", col)
             setCollectionData(col)
