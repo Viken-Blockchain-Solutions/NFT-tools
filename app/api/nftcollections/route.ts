@@ -4,7 +4,7 @@ import User from '@models/user';
 import { NextRequest } from 'next/server';
 
 export const GET = async ( request: NextRequest ) => {
-    
+
     try {
         await connectToDB();
         console.log("TRYING TO FIND NFT COLLECTIONS")
@@ -14,10 +14,12 @@ export const GET = async ( request: NextRequest ) => {
         const nftcollections: any = [];
 
         users.forEach((user) => {
-            user?.nftCollections?.forEach((collection) => {
-                nftcollections.push(collection);
+            user?.nftCollections?.forEach((_collection) => {
+                nftcollections.push(_collection);
             })
         })
+
+        console.log(nftcollections)
         
 
         return new Response(JSON.stringify(nftcollections), {status: 200});

@@ -28,16 +28,16 @@ const NFTCollectionPage = () => {
     const [collectionsList, setCollectionsList] = useState<any>([]);
     const [dbData, setDBData] = useState<UserResponse>();
     const [submitting, setSubmitting] = useState<boolean>(false);
-
+    const userId = session?.user;
     
     useEffect(() => {
-        if (!session?.user) {
+        if (!userId) {
             router.push("/");
         }
         const fetchFromDB = async () => {
 
             try {
-                const response = await fetch("/api/nftcollections",);
+                const response = await fetch("/api/nftcollections");
                 
                 if (!response.ok) {
                     throw new Error("Not ok response")
