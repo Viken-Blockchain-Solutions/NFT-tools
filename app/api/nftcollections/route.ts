@@ -10,7 +10,6 @@ export const GET = async ( request: NextRequest ) => {
         console.log("TRYING TO FIND NFT COLLECTIONS")
         // find all collections by deployer
         const users = await User.find({}).populate('email');
-        console.log("users:", users.length)
         const nftcollections: any = [];
 
         users.forEach((user) => {
@@ -19,7 +18,7 @@ export const GET = async ( request: NextRequest ) => {
             })
         })
 
-        console.log(nftcollections)
+        console.log("In NFTCOLLECTIONS.route.ts: ", nftcollections)
         
 
         return new Response(JSON.stringify(nftcollections), {status: 200});
