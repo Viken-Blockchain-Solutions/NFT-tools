@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import logo from "@/public/assets/images/logo.svg";
+import { abbreviatedAddress } from './UserCollectionsCard';
 
 const NFTCollectionCard = ({ data, handleEdit, handleDelete }: {data: any, handleEdit: any, handleDelete: any}) => {
   const [copied , setCopied] = useState("");
@@ -11,8 +12,8 @@ const NFTCollectionCard = ({ data, handleEdit, handleDelete }: {data: any, handl
   const router = useRouter();
   const pathname = usePathname();
   const user = session?.user;
-  console.log("DATA IN NFT COLLECTIONS: ", data)
 
+      
   return (
     <>
     <div className="prompt_card">
@@ -20,14 +21,14 @@ const NFTCollectionCard = ({ data, handleEdit, handleDelete }: {data: any, handl
         <div className="flex-1 flex justify-start items-center gap-3 cursor-pointer">
           <Image
             src={user?.image || logo}
-            alt="collection image"
+            alt="User image"
             width={40}
             height={40}
             className="rounded-full"
           />
           <div className="flex flex-col">
             <h3 className="font-satoshi font-semibold text-gray-900">{user?.name}</h3>
-            <p className="font-inter text-sm text-gray-500">{user?.email}</p>
+            <p className="font-inter text-sm text-gray-300">{}</p>
           </div>
         </div>
         <div className="copy_btn" onClick={() =>{}}>
@@ -40,7 +41,7 @@ const NFTCollectionCard = ({ data, handleEdit, handleDelete }: {data: any, handl
             height={12}
           />
         </div>
-        <p className="my-4 font-satoshi text-sm text-gray-700"> {data.collectionAddress}</p>
+        <p className="my-4 font-satoshi text-xs text-gray-400"> </p>
         <p className="font-inter text-sm blue-gradient cursor_pointer"
         onClick={() => {}}>{}</p>
       </div>

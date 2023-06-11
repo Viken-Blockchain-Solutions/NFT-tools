@@ -2,20 +2,18 @@ import { IUser } from '@/models/user';
 import { connectToDB } from '@lib/database';
 import User from '@models/user';
 import { NextRequest } from 'next/server';
+import NFTCollection from '@/models/nftCollection';
 
 export const GET = async ( request: NextRequest ) => {
 
     try {
         await connectToDB();
-        console.log("TRYING TO FIND NFT COLLECTIONS")
         // find all collections by deployer
-        const users = await User.find({}).populate('email');
+        const collections = await NFTCollection.find({});
         const nftcollections: any = [];
 
-        users.forEach((user) => {
-            user?.nftCollections?.forEach((_collection) => {
-                nftcollections.push(_collection);
-            })
+        collections.forEach((collection) => {
+                nftcollections.push(collection);
         })
 
         console.log("In NFTCOLLECTIONS.route.ts: ", nftcollections)

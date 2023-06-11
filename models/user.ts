@@ -5,7 +5,7 @@ export interface IUser {
     email?: string | undefined;
     username?: string | undefined;
     image?: string | undefined;
-    nftCollections?: [
+    nftCollections: [
         {
             collectionAddress: string;
             nftcollection: Types.ObjectId;

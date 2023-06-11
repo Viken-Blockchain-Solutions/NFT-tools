@@ -18,7 +18,7 @@ const ProfilePage = () => {
       
       const response = await fetch(`/api/users/${userId}/nftcollections`);
       const data = await response.json();
-      console.log(data);
+      console.log("DATA in Profile page:", data);
       setNftContracts(data);
     }
 

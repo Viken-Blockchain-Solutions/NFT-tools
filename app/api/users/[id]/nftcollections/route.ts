@@ -4,38 +4,36 @@ import User, { IUser } from "@/models/user";
 import { NextRequest  } from "next/server";
 
 
-interface Params {
-  id: string;
-}
 
-interface Context {
-  params: Params;
-}
+interface Collections {
+    collectionAddress: string,
+    nftcollection: Object,
+  };
 
-export const GET = async (request: NextRequest, { params }: Context): Promise<Response> => {
+
+export const GET = async (request: NextRequest, { params }) => {
     try {
         await connectToDB();
-        const user: IUser[] = await User.find({ _id: params.id }).populate('nftCollections');
-        const nftCollections: any = [];
+        const user: any = await User.findOne({ _id: params.id }).populate('nftCollections');
 
-        for (let _user of user) {
-            for (let collection of (_user?.nftCollections || [])) {
-                nftCollections.push(collection);
+        const userCollections: Collections[] = [];
+        
+            for (let collection of user.nftCollections) {
+                userCollections.push(collection);
+            }
+        
+
+        console.log("userCollections: ", userCollections);
+
+        const nftCollections: INftCollection[] = [];
+        for (let collection of userCollections) {
+            let nftCollection: any = await NFTCollection.find({ _id: collection.nftcollection });
+            if (nftCollection != null){
+                nftCollections.push(nftCollection);
             }
         }
-
-        console.log("nftcollections:", nftCollections);
-
-        const collectionPromises = nftCollections.map((collection: { _id: any; }) => {
-            console.log("collectionId:", collection._id);
-            return NFTCollection.findOne({ _id: collection._id });
-        });
-
-        const collectionsData: (INftCollection | null)[] = await Promise.all(collectionPromises);
-
-        console.log("collectionsData in users/route.ts: ", collectionsData);
-
-        return new Response(JSON.stringify(collectionsData), {status: 200});
+        console.log("nftCollections: ", nftCollections);
+        return new Response(JSON.stringify(nftCollections), {status: 200});
     } catch (error) {
         console.log("This is error: ", error);
         return new Response(JSON.stringify({ error: error }), {status: 500}); 

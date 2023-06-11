@@ -1,43 +1,47 @@
 'use client'
 import { useEffect, useState } from 'react';
 import Stats from './stats';
+import { Collection } from 'mongoose';
 
 
 
-const SelectedTab = ({activeTab}: {activeTab: number}) => {
+/* const SelectedContent = (activeContent, collectionData) => {
     
+    for (const collection in collectionData) {
+        console.log(collection)
+    }
+
     return (
         <div className={activeTab === 1 ? "content content-active" : "content"}>
             <Stats />
         </div>
     )
-}
+} */
 
 function TabWindow(dbData: any) {
     const [activeTab, setActiveTab] = useState<number>(1);
+    const [activeContent, setActiveContent] = useState<number>(1);
     const [collectionData, setCollectionData] = useState([]);
 
     useEffect(() => {
         const data = dbData?.dbData;
-        const getAddresses = async () => {
+        const getCollections = () => {
             const col: any = [];
 
             if (data) {
-                data.map((collection: any) => {
-                    console.log(collection)
-                        col.push(collection.collection)
+                data.map(async (collection: any) => {
+                        col.push(collection)
                     })
-                console.log("Col: ", col)
             }
-            console.log("Collections: ", col)
             setCollectionData(col)
         }
-        getAddresses();
+        getCollections();
 
     }, [dbData?.dbData]);
 
     const toggleTab = (tab: number) => {
         setActiveTab(tab);
+        setActiveContent(tab);
         console.log("hey")
     }
 
@@ -65,9 +69,7 @@ function TabWindow(dbData: any) {
                         Collection 3
                     </a>
                 </div>
-                {/* <SelectedTab 
-                activeTab={activeTab}
-                /> */}
+                  {/*   <SelectedContent activeContent={activeContent} collectionData={collectionData}/> */}
             </section>
             )}
         </>
