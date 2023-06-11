@@ -38,13 +38,15 @@ const ProfilePage = () => {
   }
 
   return (
-    <Profile 
-      name="my"
-      desc="Welcome to your personalized profile page."
-      data={nftContracts}
-      handleEdit={handleEdit}
-      handleDelete={handleDelete}
-    />
+
+      <Profile 
+        name="my"
+        desc="Welcome to your personalized profile page."
+        data={nftContracts}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+      />
+
   )
 }
 
