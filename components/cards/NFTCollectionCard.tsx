@@ -67,9 +67,9 @@ const NFTCollectionCard: React.FC<NFTCollectionCardProps> = ({ data, handleEdit,
             height={40}
             className="rounded-full"
           />
-          <div className="flex flex-col">
+          <div className="flex flex-col w-full">
             <h3 className="font-satoshi font-semibold text-gray-900">{collectionData?.name}</h3>
-            <p className="font-inter text-sm text-gray-300">{abbreviatedAddress(collectionData?.contractAddress)}</p>
+            <p className="font-inter text-sm text-gray-300 mt-2 mx-auto">{abbreviatedAddress(collectionData?.contractAddress)}</p>
           </div>
         </div>
         <div className="copy_btn" onClick={handleCopy}>
