@@ -1,6 +1,4 @@
-import { IUser } from '@/models/user';
 import { connectToDB } from '@lib/database';
-import User from '@models/user';
 import NFTCollection from '@/models/nftCollection';
 
 // GET
@@ -32,6 +30,7 @@ export const PATCH = async ( request: any, { params }: any  ) => {
     try {
         await connectToDB();
         const existingCollection = await NFTCollection.findById(params.id);
+
         if(!existingCollection) {
             return new Response(JSON.stringify("Collection not found"), {status: 404});
         }
@@ -52,4 +51,20 @@ export const PATCH = async ( request: any, { params }: any  ) => {
             {status: 500});
     }
 }
+
 // DELETE
+export const DELETE = async ( request: any, { params }: any  ) => {
+
+    try {
+        await connectToDB();
+        await NFTCollection.findByIdAndRemove(params.id);
+
+        return new Response(JSON.stringify("Collection deleted successfully"), {status: 200});
+
+    } catch (error) {
+        console.log("error:", error);
+        return new Response(JSON.stringify("Failed to delete NFT Collection from DB"), 
+            {status: 500});
+    }
+
+}
