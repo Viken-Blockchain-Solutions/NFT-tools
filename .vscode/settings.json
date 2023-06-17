@@ -1,5 +1,12 @@
 {
     "editor.tabCompletion": "on",
     "diffEditor.codeLens": true,
-    "MutableAI.upsell": true
+    "MutableAI.upsell": true,
+    "cSpell.words": [
+        "Idsw",
+        "royaltydata"
+    ],
+    "cSpell.ignoreWords": [
+        "Ccho"
+    ]
 }

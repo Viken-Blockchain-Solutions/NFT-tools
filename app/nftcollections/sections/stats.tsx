@@ -2,10 +2,11 @@ import { INftCollection } from "@models/nftCollection";
 import Image from "next/image";
 import logo from "@public/assets/images/Viken (Black).jpg";
 import { abbreviatedAddress } from "@components/cards/UserCollectionsCard";
-import { getCollectionSalesData } from "@lib/blockchain";
+import { getCollectionSalesData, getPrimarySales } from "@lib/blockchain";
 import RoyaltyCard from '@components/cards/RoyaltyCard';
 import { useState } from "react";
 import { NftSale } from "alchemy-sdk";
+import PrimarySales from "@models/primarySales";
 
 type StatProps = {
   collectionData: INftCollection;
@@ -26,14 +27,12 @@ const Stats = ({ collectionData }: StatProps) => {
 
   const getSaleStats = async () => {
     const response = await getCollectionSalesData(contractAddress);
-    console.log("STATS IN STATS:", response)
   
     let sum = 0;
     let nonSum = 0;
 
     response.nftSales?.forEach((sale: NftSale) => {
       let _royalty = sale.royaltyFee?.amount;
-      console.log(_royalty)
       // Skip if royalty is NaN
       if (!isNaN(Number(_royalty))) {
           sum += Number(_royalty);
@@ -46,10 +45,19 @@ const Stats = ({ collectionData }: StatProps) => {
     setSaleStats(response.nftSales);
     setSecondarySales(response.nftSales.length);
     setRoyalty(res);
-    setNonRoyalty(nonSum);
-
+    setNonRoyalty(nonSum);    
+    console.log("FETCHING PRIMARY SALES DATA..")
+    const PS = await getPrimarySalesData()
+    console.log(PS)
     setShowStats(!showStats);
     return response.nftSales;
+  }
+
+  const getPrimarySalesData = async () => {
+    console.log(contractAddress)
+    const ps = await getPrimarySales(contractAddress, deployed_blocknumber);
+    console.log("PRIMARY SALES DATA:", ps)
+    return ps;
   }
 
   return (

@@ -1,5 +1,5 @@
 'use server';
-import { Alchemy, Network, AssetTransfersCategory, NftSale } from 'alchemy-sdk';
+import { Alchemy, Network, AssetTransfersCategory, NftSale, Utils } from 'alchemy-sdk';
 import { getUSDPrice } from './utils';
 import { parseEther } from 'ethers';
 
@@ -43,13 +43,13 @@ export async function getCollectionRoyaltyData(address: string) {
     }
   });
 
-  const royaltydata = {
+  const royaltyData = {
     royalty: Number(sum.toFixed(5)) / 1e18,
     nonRoyalty: nonSum,
     royaltyUSD: (await getUSDPrice()) * Number(sum.toFixed(5)) / 1e18,
   }
 
-  return royaltydata;
+  return royaltyData;
 } 
 
 export async function getCollectionSalesData(address: string) {
@@ -76,3 +76,81 @@ export async function getCollectionTransferHistory(address: string) {
   console.log(JSON.stringify(data));
   return data;
 }
+
+export async function getPrimarySales(address: string, deployed_block: number) {
+  'use server'
+      // Initialize Alchemy SDK with your API key
+      const alchemy = new Alchemy({ apiKey: 'x5pi1Ykrq9fnCchoIdswHu9ijWHflqIs' });
+      
+      // Define the contract address for your ERC721 collection
+      const contractAddress = address;
+      
+      // Define the ZERO address and the event topic
+      const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
+      const TRANSFER_EVENT_TOPIC = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
+      const SPECIAL_EVENT_TOPIC = '0x30385c845b448a36257a6a1716e6ad2e1bc2cbe333cde1e69fe849ad6511adfe';
+      
+      
+      async function calculatePrimarySalesRevenue() {
+        let totalRevenue = 0;
+      
+        // Fetch all Transfer events for the contract
+        const logs = await alchemy.core.getLogs({
+          address: contractAddress,
+          topics: [SPECIAL_EVENT_TOPIC],
+          fromBlock: deployed_block, // replace with the block number where the contract was deployed
+          toBlock: 'latest'
+        });
+
+        console.log("LOGS:",logs)
+        // Iterate over each log
+        for (const log of logs) {
+          // Check if the log is a primary sale
+          if (isPrimarySale(log)) {
+            // Get the transaction hash from the log
+            const transactionHash = log.transactionHash;
+              // Fetch the transaction using the transaction hash
+            const transaction = await alchemy.core.getTransaction(transactionHash);
+            
+              console.log("TRANSACTION:",transaction)
+            // Get the value of the transaction
+            const value = Utils.formatEther(transaction.value);
+            // Fetch the transaction receipt using the transaction hash
+            const receipt = await alchemy.core.getTransactionReceipt(transactionHash);
+    
+            // Get the value and gas costs of the transaction from the receipt
+   
+            const gasUsed = receipt?.gasUsed;
+            const gasPrice = Utils.formatEther(receipt?.gasPrice);
+            const totalGasCost = gasUsed * gasPrice;
+    
+            console.log(`Value: ${value} ETH, Gas Used: ${gasUsed}, Gas Price: ${gasPrice} ETH, Total Gas Cost: ${totalGasCost} ETH`);
+    
+            // If it is a primary sale, add the value of the transfer to the total revenue
+            totalRevenue += parseFloat(value);
+          }
+        }
+    
+        return totalRevenue;
+      }
+
+      function isPrimarySale(log: any): boolean {
+        // Check if the "from" address is the ZERO address
+        if (log.topics[1] === ZERO_ADDRESS) {
+          return true;
+        }
+
+        // Check if the transaction emitted the specified event
+        if (log.topics[0] === SPECIAL_EVENT_TOPIC) {
+          return true;
+        }
+
+        // If neither of the above conditions are met, this is not a primary sale
+        return false;
+      }
+
+      calculatePrimarySalesRevenue().then(revenue => {
+        console.log(`Total revenue from primary sales: ${revenue} ETH`);
+      });
+}
+
