@@ -69,22 +69,15 @@ const NFTCollectionPage = () => {
                 <hr className="my-8 bg-purple-700 w-1/2" />
                 <TabWindow dbData={dbData} />
                 
-                {/* 
+               
                 <hr className="my-8 bg-purple-700 w-1/2" />
                     <AddressForm
                         setCollectionAddress={setCollectionAddress}
                         submitting={submitting}
                     /> 
 
-                    <div>
-                        {collectionsList && Object.keys(collectionsList).map((key: any) => (
-                            <div key={key}>
-                                <div>{collectionsList[key].address}</div>
-                                <div>{collectionsList[key].id}</div>
-                            </div>
-                        ))}
-                    </div>
-                */}
+                   
+             
             </div>
         </>
 

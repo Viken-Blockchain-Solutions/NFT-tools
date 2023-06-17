@@ -65,7 +65,7 @@ export const Hero = () => {
         <div className="container mx-auto xl:px-32 text-gray-800">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="mt-12 lg:mt-0 z-10" >
-              <h1 className="head_text text-white my-10 md:text-6xl xl:text-7xl">Unlock the <br /><span className="orange_gradient">full potential <br /> of your NFT Collections</span></h1>
+              <h1 className="head_text my-10 md:text-6xl xl:text-7xl">Unlock the <br /><span className="orange_gradient">full potential <br /> of your NFT Collections</span></h1>
               <p className="text-center text-stone-50 text-md lg:text-xl desc" >
                 NFTInsight is the ultimate platform to manage and analyse any NFT collections.
                 With our advanced search and analytics tools, you can quickly gain insights into the value of your collection.

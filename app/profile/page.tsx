@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { Profile } from '@/components/Profile';
 
 const ProfilePage = () => {
+  const router = useRouter();
   const { data: session } = useSession();
   const [nftContracts, setNftContracts] = useState([]);
 
@@ -29,8 +30,8 @@ const ProfilePage = () => {
   }, []);
 
 
-  const handleEdit = () => {
-    console.log('edit');
+  const handleEdit = (nftContracts: any) => {
+    router.push(`/update-collection?userId=${nftContracts}`)
   }
 
   const handleDelete = async () => {
