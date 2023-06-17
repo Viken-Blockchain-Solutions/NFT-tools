@@ -6,8 +6,6 @@ import { getCollectionSalesData } from "@lib/blockchain";
 import RoyaltyCard from '@components/cards/RoyaltyCard';
 import { useState } from "react";
 import { NftSale } from "alchemy-sdk";
-import SecondarySales from '../../../models/secondarySales';
-import { parseEther } from "ethers";
 
 type StatProps = {
   collectionData: INftCollection;
@@ -85,8 +83,8 @@ const Stats = ({ collectionData }: StatProps) => {
               total_sales={secondarySales} 
               primary_sales={500} 
               secondary_sales={secondarySales} 
-              total_royalty={200} 
-              royalty_sales={royalty} 
+              total_royalty={(royalty / 1e18).toFixed(5)} 
+              royalty_sales={secondarySales-nonRoyalty} 
               non_royalty_sales={nonRoyalty} 
             />
           )}

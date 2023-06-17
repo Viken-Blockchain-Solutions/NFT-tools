@@ -4,7 +4,7 @@ interface RoyaltyCardProps {
   total_sales: number;
   primary_sales: number;
   secondary_sales: number;
-  total_royalty: number;
+  total_royalty: string;
   royalty_sales: number;
   non_royalty_sales: number;
 }
