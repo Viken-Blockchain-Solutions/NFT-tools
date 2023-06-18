@@ -61,7 +61,7 @@ const NFTCollectionPage = () => {
                 <div>
                     <h1 className="head_text text_left"><span className="orange_gradient">Stored Collections</span></h1>
                     <p className="my-5 text-left max-w-md text-gray-700">
-                        Save the collection address to access the dashboard and start tracking your collection.
+                        Browse your stored collections and view their stats.
                     </p>
                 </div>
 
@@ -71,10 +71,10 @@ const NFTCollectionPage = () => {
                 
                
                 <hr className="my-8 bg-purple-700 w-1/2" />
-                    <AddressForm
+     {/*                <AddressForm
                         setCollectionAddress={setCollectionAddress}
                         submitting={submitting}
-                    /> 
+                    />  */}
 
                    
              

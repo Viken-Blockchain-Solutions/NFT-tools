@@ -10,6 +10,7 @@ const ProfilePage = () => {
   const router = useRouter();
   const { data: session } = useSession();
   const [nftContracts, setNftContracts] = useState([]);
+  const [amountStored, setAmountStored] = useState(0);
 
   const userId = session?.user?.id;
 
@@ -19,8 +20,8 @@ const ProfilePage = () => {
       
       const response = await fetch(`/api/users/${userId}/nftcollections`);
       const data = await response.json();
-      console.log("DATA in Profile page:", data);
       setNftContracts(data);
+      setAmountStored(data.length);
     }
 
     if (userId) {
@@ -31,7 +32,7 @@ const ProfilePage = () => {
 
 
   const handleEdit = (nftContracts: any) => {
-    router.push(`/update-collection?userId=${nftContracts}`)
+    router.push(`/update-collection?nftcollections=${nftContracts._id}`)
   }
 
   const handleDelete = async () => {
@@ -43,6 +44,7 @@ const ProfilePage = () => {
       <Profile 
         name="my"
         desc="Welcome to your personalized profile page."
+        amountStored={amountStored}
         data={nftContracts}
         handleEdit={handleEdit}
         handleDelete={handleDelete}

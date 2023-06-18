@@ -16,6 +16,7 @@ export const GET = async (request: NextRequest, { params }) => {
         await connectToDB();
         const user: any = await User.findOne({ _id: params.id }).populate('nftCollections');
 
+        console.log("user: ", user);
         const userCollections: Collections[] = [];
         
             for (let collection of user.nftCollections) {

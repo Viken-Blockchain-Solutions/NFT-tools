@@ -112,16 +112,18 @@ export async function getPrimarySales(address: string, deployed_block: number) {
               // Fetch the transaction using the transaction hash
             const transaction = await alchemy.core.getTransaction(transactionHash);
             
-              console.log("TRANSACTION:",transaction)
+            console.log("TRANSACTION:",transaction)
+
             // Get the value of the transaction
-            const value = Utils.formatEther(transaction.value);
+            const value = Utils.formatEther(transaction?.value || '0');
+
             // Fetch the transaction receipt using the transaction hash
-            const receipt = await alchemy.core.getTransactionReceipt(transactionHash);
+            const receipt = await alchemy.core.getAssetTransfers(transactionHash);
     
             // Get the value and gas costs of the transaction from the receipt
    
             const gasUsed = receipt?.gasUsed;
-            const gasPrice = Utils.formatEther(receipt?.gasPrice);
+            const gasPrice = Utils.formatEther(receipt?.gasPrice || '0');
             const totalGasCost = gasUsed * gasPrice;
     
             console.log(`Value: ${value} ETH, Gas Used: ${gasUsed}, Gas Price: ${gasPrice} ETH, Total Gas Cost: ${totalGasCost} ETH`);
