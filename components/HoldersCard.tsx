@@ -1,18 +1,18 @@
 'use client'
 import { TableList } from './TableList';
 import { useCallback, useEffect } from 'react';
-import {
+/* import {
     Modal,
     Ripple,
     initTE,
-  } from "tw-elements"; 
+  } from "tw-elements";  */
 
   
 export const HoldersCard = ({ holdersData}: { holdersData: any }) => {
     
-   useEffect(() => {
+/*    useEffect(() => {
         initTE({ Modal, Ripple });
-    }, []);
+    }, []); */
     
     const { holders, holding } = holdersData;
     

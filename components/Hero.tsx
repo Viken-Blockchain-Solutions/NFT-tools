@@ -5,8 +5,6 @@ import { useEffect, useState } from "react";
 import { FormResult } from "./FormResult";
 import { PriceCard } from "./PriceCard";
 import { NFTCollection } from "@/types";
-import "tw-elements";
-import { set } from "mongoose";
 
 
 export const Hero = () => {

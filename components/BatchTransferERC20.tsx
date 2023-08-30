@@ -1,44 +1,88 @@
-import React from 'react';
+'use client'
+import React, { useState } from 'react';
+
+type Recipient = {
+  address: string;
+  amount: string;
+};
 
 type BatchTransferERC20Props = {
   userAccount: string | null;
 };
 
-const BatchTransferERC20Page = ({ userAccount }: BatchTransferERC20Props) => {
+const BatchTransferERC20Page: React.FC<BatchTransferERC20Props> = ({ userAccount }) => {
+  const [recipients, setRecipients] = useState<Recipient[]>([]);
+
   const handleAddRecipient = () => {
-    const newField = document.createElement('div');
-    newField.innerHTML = `
-      <input type="text" placeholder="Recipient Address" class="form-control me-2">
-      <input type="text" placeholder="Amount" class="form-control">
-    `;
-    const recipientAddressesAndValues = document.getElementById('recipientAddressesAndValues');
-    recipientAddressesAndValues?.appendChild(newField);
+    setRecipients([...recipients, { address: '', amount: '' }]);
   };
 
-  const handleRemoveRecipient = () => {
-    const recipientAddressesAndValues = document.getElementById('recipientAddressesAndValues');
-    if (recipientAddressesAndValues?.lastChild) {
-      recipientAddressesAndValues.removeChild(recipientAddressesAndValues.lastChild);
-    }
+  const handleRemoveRecipient = (index: number) => {
+    const updatedRecipients = recipients.filter((_, i) => i !== index);
+    setRecipients(updatedRecipients);
   };
 
   return (
-    <div id="batchTransferERC20Page" className="d-none mt-4">
+    <div className="d-none mt-4">
       <h2>Batch Transfer ERC20</h2>
-      <input
-        type="text"
-        id="erc20ContractAddress"
-        placeholder="ERC20 Contract Address"
-        className="form-control mb-2"
-      />
-      <div id="recipientAddressesAndValues"></div>
-      <button id="addRecipientERC20" className="btn btn-info mt-2 mb-2" onClick={handleAddRecipient}>
+      <div className="form-control w-full max-w-xs">
+        <label className="label">
+          <span className="label-text">ERC20 Contract Address</span>
+        </label>
+        <input type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+      </div>
+      <div className="overflow-x-auto">
+        <table className="table table-zebra">
+          <thead>
+            <tr>
+              <th>Recipient Address</th>
+              <th>Amount</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {recipients.map((recipient, index) => (
+              <tr key={index}>
+                <td>
+                  <input
+                    type="text"
+                    value={recipient.address}
+                    placeholder="Recipient Address"
+                    className="form-control input input-bordered w-full max-w-xs"
+                    onChange={(e) => {
+                      const newRecipients = [...recipients];
+                      newRecipients[index].address = e.target.value;
+                      setRecipients(newRecipients);
+                    }}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value={recipient.amount}
+                    placeholder="Amount"
+                    className="form-control input input-bordered w-full max-w-xs"
+                    onChange={(e) => {
+                      const newRecipients = [...recipients];
+                      newRecipients[index].amount = e.target.value;
+                      setRecipients(newRecipients);
+                    }}
+                  />
+                </td>
+                <td>
+                  <button className="btn btn-danger" onClick={() => handleRemoveRecipient(index)}>
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <button className="btn btn-info" onClick={handleAddRecipient}>
         Add Recipient
       </button>
-      <button id="removeRecipientERC20" className="btn btn-danger mt-2 mb-2" onClick={handleRemoveRecipient}>
-        Remove Recipient
-      </button>
-      <button id="submitERC20" className="btn btn-success mt-2">
+      <button className="btn btn-success mt-2">
         Submit
       </button>
     </div>

@@ -24,8 +24,6 @@ export default function RootLayout({
         <div className='main'>
           <div className='gradient'/>
         </div>
-
-        <NavBar />
         <main className='app'>
           {children}
         </main>

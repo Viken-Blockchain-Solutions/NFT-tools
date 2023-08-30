@@ -33,29 +33,33 @@ const BatchTransferERC721Page = ({ userAccount }: BatchTransferERC721Props) => {
   return (
     <div id="batchTransferERC721Page" className="d-none mt-4">
       <h2>Batch Transfer ERC721</h2>
+      <label className="label">
+        <span className="label-text">What is your name?</span>
+        <span className="label-text-alt">Top Right label</span>
+      </label>
       <input
         type="text"
-        id="erc721ContractAddress"
-        placeholder="ERC721 Contract Address"
-        className="form-control mb-2"
+        id="erc20ContractAddress"
+        placeholder="ERC20 Contract Address"
+        className="form-control mb-2 input input-bordered w-full max-w-xs"
       />
+      <label className="label">
+        <span className="label-text-alt">Bottom Left label</span>
+        <span className="label-text-alt">Bottom Right label</span>
+      </label>
       <div className="overflow-x-auto">
-        <table className="w-full">
+        <table className="table table-zebra">
           <thead>
             <tr>
-              <th className="p-3 text-sm font-semibold tracking-wide text-left border border-slate-900">
-                Recipient Address
-              </th>
-              <th className="p-3 text-sm font-semibold tracking-wide text-left border border-slate-600">
-                Token ID
-              </th>
-              <th></th>
+              <th>Recipient Address</th>
+              <th>Token ID</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {recipients.map((recipient, index) => (
-              <tr key={index} className="bg-gray-50 text-gray-500">
-                <td className="border border-slate-700 p-3 text-sm text-gray-700 whitespace-nowrap">
+              <tr key={index}>
+                <td>
                   <input
                     type="text"
                     value={recipient.address}
@@ -64,7 +68,7 @@ const BatchTransferERC721Page = ({ userAccount }: BatchTransferERC721Props) => {
                     onChange={(e) => handleRecipientAddressChange(index, e.target.value)}
                   />
                 </td>
-                <td className="border border-slate-700 p-3 text-sm text-gray-700 whitespace-nowrap">
+                <td>
                   <input
                     type="text"
                     value={recipient.tokenId}
@@ -73,11 +77,8 @@ const BatchTransferERC721Page = ({ userAccount }: BatchTransferERC721Props) => {
                     onChange={(e) => handleTokenIdChange(index, e.target.value)}
                   />
                 </td>
-                <td className="border border-slate-700 p-3 text-sm text-gray-700 whitespace-nowrap">
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => handleRemoveRecipient(index)}
-                  >
+                <td>
+                  <button className="btn btn-danger" onClick={() => handleRemoveRecipient(index)}>
                     Remove
                   </button>
                 </td>
