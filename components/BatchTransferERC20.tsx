@@ -41,7 +41,7 @@ const BatchTransferERC20Page: React.FC<BatchTransferERC20Props> = ({ userAccount
         <span className="label-text-alt">Bottom Right label</span>
       </label>
       <div className="overflow-x-auto">
-        <table className="table table-zebra">
+        <table className="table table-xs table-zebra">
           <thead>
             <tr>
               <th>Recipient Address</th>
@@ -52,35 +52,31 @@ const BatchTransferERC20Page: React.FC<BatchTransferERC20Props> = ({ userAccount
           <tbody>
             {recipients.map((recipient, index) => (
               <tr key={index}>
-                <td>
+                <td className="flex flex-col sm:flex-row items-center">
                   <input
                     type="text"
                     value={recipient.address}
                     placeholder="Recipient Address"
-                    className="form-control input input-bordered w-full max-w-xs"
+                    className="form-control input input-bordered w-full max-w-xs mb-2 sm:mb-0 sm:mr-2"
                     onChange={(e) => {
                       const newRecipients = [...recipients];
                       newRecipients[index].address = e.target.value;
                       setRecipients(newRecipients);
                     }}
                   />
-                </td>
-                <td>
                   <input
                     type="text"
                     value={recipient.amount}
                     placeholder="Amount"
-                    className="form-control input input-bordered w-full max-w-xs"
+                    className="form-control input input-bordered w-full max-w-xs mb-2 sm:mb-0 sm:mr-2"
                     onChange={(e) => {
                       const newRecipients = [...recipients];
                       newRecipients[index].amount = e.target.value;
                       setRecipients(newRecipients);
                     }}
                   />
-                </td>
-                <td>
                   <button className="btn btn-xs" onClick={() => handleRemoveRecipient(index)}>
-                    Remove
+                    <svg className="h-4 w-4"> {/* Add your Heroicons (-) SVG here */} </svg>
                   </button>
                 </td>
               </tr>

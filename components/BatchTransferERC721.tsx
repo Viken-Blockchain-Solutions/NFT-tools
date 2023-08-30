@@ -1,34 +1,78 @@
 'use client'
+import { ethers } from 'ethers';
 import { useState } from "react";
 type BatchTransferERC721Props = {
   userAccount: string | null;
 };
-
-const BatchTransferERC721Page = ({ userAccount }: BatchTransferERC721Props) => {
+/**
+ * Renders a page for batch transferring ERC721 tokens.
+ * @param {Object} props - The component props.
+ * @param {string} props.userAccount - The user account.
+ * @returns {JSX.Element|null} The rendered component.
+ */
+const BatchTransferERC721Page = ({ userAccount }: BatchTransferERC721Props): JSX.Element | null => {
   const [recipients, setRecipients] = useState<Array<{ address: string; tokenId: string }>>([]);
+  const [message, setMessage] = useState<string>('');
 
-  const handleAddRecipient = () => {
+  /**
+   * Adds a new recipient to the list.
+   */
+  const handleAddRecipient = (): void => {
     setRecipients([...recipients, { address: '', tokenId: '' }]);
   };
 
-  const handleRemoveRecipient = (index: number) => {
+  /**
+   * Removes a recipient from the list.
+   * @param {number} index - The index of the recipient to remove.
+   */
+  const handleRemoveRecipient = (index: number): void => {
     const updatedRecipients = recipients.filter((_, i) => i !== index);
     setRecipients(updatedRecipients);
   };
 
-  const handleRecipientAddressChange = (index: number, value: string) => {
-    const updatedRecipients = recipients.map((recipient, i) =>
-      i === index ? { ...recipient, address: value } : recipient
-    );
-    setRecipients(updatedRecipients);
+  /**
+   * Handles the change event for the recipient address input.
+   * @param {number} index - The index of the recipient.
+   * @param {string} value - The new value of the input.
+   */
+  const handleRecipientAddressChange = (index: number, value: string): void => {
+    if (validateAddress(value)) {
+      const updatedRecipients = recipients.map((recipient, i) =>
+        i === index ? { ...recipient, address: value } : recipient
+      );
+      setRecipients(updatedRecipients);
+    } else {
+      // handle invalid address
+    }
   };
 
-  const handleTokenIdChange = (index: number, value: string) => {
+  /**
+   * Handles the change event for the token ID input.
+   * @param {number} index - The index of the recipient.
+   * @param {string} value - The new value of the input.
+   */
+  const handleTokenIdChange = (index: number, value: string): void => {
     const updatedRecipients = recipients.map((recipient, i) =>
       i === index ? { ...recipient, tokenId: value } : recipient
     );
     setRecipients(updatedRecipients);
   };
+
+  /**
+   * Handles the submit event.
+   */
+  const handleSubmit = (): void => {
+    try {
+      // perform batch transfer logic
+      setMessage('Transfer successful');
+    } catch (error) {
+      // handle error
+    }
+  };
+
+  if (userAccount === null) {
+    return null; // or render an appropriate message or component
+  }
 
   return (
     <div id="batchTransferERC721Page" className="d-none mt-4">
@@ -59,27 +103,23 @@ const BatchTransferERC721Page = ({ userAccount }: BatchTransferERC721Props) => {
           <tbody>
             {recipients.map((recipient, index) => (
               <tr key={index}>
-                <td>
+                <td className="flex flex-col sm:flex-row items-center">
                   <input
                     type="text"
                     value={recipient.address}
                     placeholder="Recipient Address"
-                    className="form-control"
+                    className="form-control input input-bordered w-full max-w-xs mb-2 sm:mb-0 sm:mr-2"
                     onChange={(e) => handleRecipientAddressChange(index, e.target.value)}
                   />
-                </td>
-                <td>
                   <input
                     type="text"
                     value={recipient.tokenId}
                     placeholder="Token ID"
-                    className="form-control"
+                    className="form-control input input-bordered w-full max-w-xs mb-2 sm:mb-0 sm:mr-2"
                     onChange={(e) => handleTokenIdChange(index, e.target.value)}
                   />
-                </td>
-                <td>
                   <button className="btn btn-xs" onClick={() => handleRemoveRecipient(index)}>
-                    Remove
+                    <svg className="h-4 w-4"> {/* Add your Heroicons (-) SVG here */} </svg>
                   </button>
                 </td>
               </tr>
@@ -87,22 +127,34 @@ const BatchTransferERC721Page = ({ userAccount }: BatchTransferERC721Props) => {
           </tbody>
         </table>
       </div>
-      <button
-        id="addRecipientERC721"
-        className="btn btn-info"
-        onClick={handleAddRecipient}
-      >
-        Add Recipient
-      </button>
-      <button
-        id="submitERC721"
-        className="btn btn-success mt-2"
-        disabled={recipients.length === 0}
-      >
-        Submit
-      </button>
+      <div>
+        <button id="addRecipientERC721" className="btn btn-info" onClick={handleAddRecipient}>
+          Add Recipient
+        </button>
+        <button
+          id="submitERC721"
+          className="btn btn-success mt-2"
+          disabled={recipients.length === 0}
+          onClick={handleSubmit}
+        >
+          Submit
+        </button>
+        {message && <p>{message}</p>}
+      </div>
     </div>
   );
+};
+
+
+const validateAddress = (address: string) => {
+  // use ethers.js or web3.js to validate the address
+  try {
+    // @ts-ignore
+    ethers.utils.getAddress(address);
+    return true;
+  } catch (error) {
+    return false;
+  }
 };
 
 export default BatchTransferERC721Page;

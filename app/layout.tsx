@@ -24,9 +24,9 @@ export default function RootLayout({
         <div className='main'>
           <div className='gradient'/>
         </div>
-        <main className='app'>
+        <section className='app'>
           {children}
-        </main>
+        </section>
         <Footer />
         <Analytics />
       </body>
