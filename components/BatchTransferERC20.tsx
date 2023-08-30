@@ -22,15 +22,24 @@ const BatchTransferERC20Page: React.FC<BatchTransferERC20Props> = ({ userAccount
     setRecipients(updatedRecipients);
   };
 
+
   return (
     <div className="d-none mt-4">
       <h2>Batch Transfer ERC20</h2>
-      <div className="form-control w-full max-w-xs">
-        <label className="label">
-          <span className="label-text">ERC20 Contract Address</span>
-        </label>
-        <input type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
-      </div>
+      <label className="label">
+        <span className="label-text">What is your name?</span>
+        <span className="label-text-alt">Top Right label</span>
+      </label>
+      <input
+        type="text"
+        id="erc20ContractAddress"
+        placeholder="ERC20 Contract Address"
+        className="form-control mb-2 input input-bordered w-full max-w-xs"
+      />
+      <label className="label">
+        <span className="label-text-alt">Bottom Left label</span>
+        <span className="label-text-alt">Bottom Right label</span>
+      </label>
       <div className="overflow-x-auto">
         <table className="table table-zebra">
           <thead>
@@ -70,7 +79,7 @@ const BatchTransferERC20Page: React.FC<BatchTransferERC20Props> = ({ userAccount
                   />
                 </td>
                 <td>
-                  <button className="btn btn-danger" onClick={() => handleRemoveRecipient(index)}>
+                  <button className="btn btn-xs" onClick={() => handleRemoveRecipient(index)}>
                     Remove
                   </button>
                 </td>

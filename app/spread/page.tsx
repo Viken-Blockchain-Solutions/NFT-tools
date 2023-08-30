@@ -87,7 +87,7 @@ const Page = () => {
   };
 
   return (
-    <div className='w-full md:mx-auto'>
+    <div>
       <div className="container mt-4">
         <Nav connectWallet={connectWallet} />
         <div className="my-5">

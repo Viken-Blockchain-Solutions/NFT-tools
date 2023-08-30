@@ -78,7 +78,7 @@ const BatchTransferERC721Page = ({ userAccount }: BatchTransferERC721Props) => {
                   />
                 </td>
                 <td>
-                  <button className="btn btn-danger" onClick={() => handleRemoveRecipient(index)}>
+                  <button className="btn btn-xs" onClick={() => handleRemoveRecipient(index)}>
                     Remove
                   </button>
                 </td>
